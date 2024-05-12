@@ -1,8 +1,6 @@
 package com.example.githubapp.data.remote.retrofit
 
 import com.example.githubapp.data.remote.response.DetailUserResponse
-import com.example.githubapp.data.remote.response.FollowersResponse
-import com.example.githubapp.data.remote.response.FollowingResponse
 import com.example.githubapp.data.remote.response.SearchResponse
 import com.example.githubapp.data.remote.response.UserResponseItem
 import retrofit2.http.GET
@@ -20,8 +18,8 @@ interface ApiService {
     suspend fun getDetailUser(@Path("username") username: String): DetailUserResponse
 
     @GET("users/{username}/followers")
-    suspend fun getFollowers(@Path("username") username: String): FollowersResponse
+    suspend fun getFollowers(@Path("username") username: String): List<UserResponseItem>
 
     @GET("users/{username}/following")
-    suspend fun getFollowing(@Path("username") username: String): FollowingResponse
+    suspend fun getFollowing(@Path("username") username: String): List<UserResponseItem>
 }
