@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.datastore.preferences)
     implementation(libs.com.facebook.shimmer)
     implementation(libs.androidx.viewpager2)
     implementation(libs.androidx.swiperefreshlayout)

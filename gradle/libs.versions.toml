@@ -22,6 +22,7 @@ viewpager2 = "1.0.0"
 swiperefreshlayout = "1.2.0-alpha01"
 ksp = "1.9.23-1.0.20"
 shimmer = "0.5.0"
+datastore = "1.1.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,6 +48,7 @@ androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "s
 com-github-bumptech-glide-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 com-github-bumptech-glide-glide-compiler = { group = "com.github.bumptech.glide", name = "ksp", version.ref = "glide" }
 com-facebook-shimmer = { group = "com.facebook.shimmer", name = "shimmer", version.ref = "shimmer" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
