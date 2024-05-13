@@ -12,8 +12,8 @@ import androidx.navigation.fragment.navArgs
 import com.example.githubapp.R
 import com.example.githubapp.databinding.FragmentDetailUserBinding
 import com.example.githubapp.ui.adapter.ViewPagerAdapter
-import com.example.githubapp.ui.utill.toDate
 import com.example.githubapp.ui.utill.loadImageUrl
+import com.example.githubapp.ui.utill.toDate
 import com.example.githubapp.ui.viewmodel.DetailUserViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -68,7 +68,27 @@ class DetailUserFragment : Fragment() {
             }.attach()
         }
 
+        viewmodel.isLoading.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.layoutContent.visibility = View.GONE
+                binding.layoutShimmer.apply {
+                    visibility = View.VISIBLE
+                    startShimmer()
+                }
+            } else {
+                binding.layoutContent.visibility = View.VISIBLE
+                binding.layoutShimmer.apply {
+                    visibility = View.GONE
+                    stopShimmer()
+                }
+            }
+        }
+
         viewmodel.error.observe(viewLifecycleOwner) {
+            binding.layoutShimmer.apply {
+                visibility = View.GONE
+                stopShimmer()
+            }
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         }
     }

@@ -21,7 +21,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        with(binding.root) {
+        with(binding.list) {
             layoutManager = LinearLayoutManager(context)
             viewmodel.listUsers.observe(viewLifecycleOwner) { listUsers ->
                 listUsers?.let {
@@ -38,10 +38,34 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewmodel.getAllUsers(requireContext())
-        viewmodel.isLoading.observe(viewLifecycleOwner) {
 
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            viewmodel.getAllUsers(requireContext())
         }
+
+        viewmodel.isLoading.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.list.visibility = View.GONE
+                binding.layoutShimmer.apply {
+                    visibility = View.VISIBLE
+                    startShimmer()
+                }
+            } else {
+                binding.list.visibility = View.VISIBLE
+                binding.swipeRefresh.isRefreshing = false
+                binding.layoutShimmer.apply {
+                    visibility = View.GONE
+                    stopShimmer()
+                }
+            }
+        }
+
         viewmodel.error.observe(viewLifecycleOwner) { message ->
+            binding.layoutShimmer.apply {
+                visibility = View.GONE
+                stopShimmer()
+            }
             Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
         }
     }
