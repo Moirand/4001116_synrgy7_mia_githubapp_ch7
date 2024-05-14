@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.MenuProvider
@@ -57,13 +58,12 @@ class HomeFragment : Fragment(), MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewmodel.getMode()
-        viewmodel.getAllUsers(requireContext())
+        viewmodel.getUsers(requireContext())
 
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
-            viewmodel.getAllUsers(requireContext())
+            viewmodel.getUsers(requireContext())
         }
 
         viewmodel.getMode.observe(viewLifecycleOwner) { isDarkModeActive ->
@@ -110,6 +110,30 @@ class HomeFragment : Fragment(), MenuProvider {
                 binding.root.findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToSettingsFragment()
                 )
+                true
+            }
+
+            R.id.menu_search -> {
+                (menuItem.actionView as SearchView).apply {
+                    isFocusable = true
+                    isIconified = false
+                    queryHint = "Ketikkan Username"
+
+                    setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                        override fun onQueryTextSubmit(username: String): Boolean {
+                            viewmodel.getUsers(requireContext(), username)
+                            clearFocus()
+                            return true
+                        }
+
+                        override fun onQueryTextChange(username: String): Boolean {
+                            if (username.isBlank()) {
+                                viewmodel.getUsers(requireContext())
+                            }
+                            return true
+                        }
+                    })
+                }
                 true
             }
 
