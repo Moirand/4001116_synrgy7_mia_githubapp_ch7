@@ -19,3 +19,8 @@ fun String.toDate(): String {
 
     return outputFormat.format(inputFormat.parse(this))
 }
+
+fun generateToken(): String {
+    val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
+    return (1..20).map { allowedChars.random() }.joinToString("")
+}
