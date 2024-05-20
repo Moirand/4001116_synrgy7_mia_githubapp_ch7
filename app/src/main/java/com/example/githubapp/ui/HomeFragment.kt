@@ -10,13 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.MenuProvider
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubapp.R
@@ -24,6 +25,8 @@ import com.example.githubapp.databinding.FragmentHomeBinding
 import com.example.githubapp.ui.adapter.RecyclerViewAdapter
 import com.example.githubapp.ui.viewmodel.HomeViewModel
 import com.example.githubapp.ui.viewmodel.HomeViewModelFactory
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
 
 private val Context.datastore: DataStore<Preferences> by preferencesDataStore(name = "preferences")
 
@@ -31,6 +34,7 @@ class HomeFragment : Fragment(), MenuProvider {
     private lateinit var binding: FragmentHomeBinding
     private val viewmodel: HomeViewModel by viewModels {
         HomeViewModelFactory.getInstance(
+            requireContext(),
             requireContext().datastore
         )
     }
@@ -58,20 +62,10 @@ class HomeFragment : Fragment(), MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewmodel.getMode()
         viewmodel.getUsers(requireContext())
-
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
             viewmodel.getUsers(requireContext())
-        }
-
-        viewmodel.getMode.observe(viewLifecycleOwner) { isDarkModeActive ->
-            if (isDarkModeActive) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
         }
 
         viewmodel.isLoading.observe(viewLifecycleOwner) {
@@ -91,12 +85,12 @@ class HomeFragment : Fragment(), MenuProvider {
             }
         }
 
-        viewmodel.error.observe(viewLifecycleOwner) { message ->
+        viewmodel.error.observe(viewLifecycleOwner) { error ->
             binding.layoutShimmer.apply {
                 visibility = View.GONE
                 stopShimmer()
             }
-            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -137,7 +131,35 @@ class HomeFragment : Fragment(), MenuProvider {
                 true
             }
 
+            R.id.menu_delete -> {
+                lifecycleScope.launch {
+                    viewmodel.deleteAccount()
+                    awaitAll(viewmodel.signOut())
+                    clearStackAndMoveToLoginFragment()
+                }
+                true
+            }
+
+            R.id.menu_signout -> {
+                lifecycleScope.launch {
+                    awaitAll(viewmodel.signOut())
+                    clearStackAndMoveToLoginFragment()
+                }
+                true
+            }
+
             else -> false
         }
+    }
+
+    private fun clearStackAndMoveToLoginFragment() {
+        val options = NavOptions.Builder()
+            .setPopUpTo(R.id.homeFragment, true)
+            .build()
+        binding.root.findNavController()
+            .navigate(
+                HomeFragmentDirections.actionHomeFragmentToLoginFragment(),
+                options
+            )
     }
 }
