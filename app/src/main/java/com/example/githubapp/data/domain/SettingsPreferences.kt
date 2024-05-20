@@ -6,8 +6,14 @@ import com.example.githubapp.data.local.SettingsPreferencesImpl
 import kotlinx.coroutines.flow.Flow
 
 interface SettingsPreferences {
-    fun getMode(): Flow<Boolean>
-    suspend fun setMode(isDarkModeActive: Boolean)
+    fun loadMode(): Flow<Boolean>
+    suspend fun saveMode(isDarkModeActive: Boolean)
+    fun loadToken(): Flow<String?>
+    suspend fun saveToken(token: String)
+    suspend fun deleteToken()
+    fun loadUserId(): Flow<Int>
+    suspend fun saveUserId(id: Int)
+    suspend fun deleteUserId()
 
     companion object {
         @Volatile
