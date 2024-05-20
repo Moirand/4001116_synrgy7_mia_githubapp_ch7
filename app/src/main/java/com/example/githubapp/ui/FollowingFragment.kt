@@ -57,12 +57,12 @@ class FollowingFragment : Fragment() {
             }
         }
 
-        viewmodel.error.observe(viewLifecycleOwner) {
+        viewmodel.error.observe(viewLifecycleOwner) { error ->
             binding.layoutShimmer.apply {
                 visibility = View.GONE
                 stopShimmer()
             }
-            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+            Toast.makeText(context, error.message, Toast.LENGTH_LONG).show()
         }
     }
 }

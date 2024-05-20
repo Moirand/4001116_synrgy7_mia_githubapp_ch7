@@ -24,8 +24,8 @@ class FollowViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _error = MutableLiveData<String?>()
-    val error: LiveData<String?> = _error
+    private val _error = MutableLiveData<Exception>()
+    val error: LiveData<Exception> = _error
 
     fun getUsername(username: String?) {
         _username = username ?: ""
@@ -41,10 +41,11 @@ class FollowViewModel : ViewModel() {
                 if (e is HttpException) {
                     val json = e.response()?.errorBody()?.string()
                     val error = Gson().fromJson(json, ErrorResponse::class.java)
-                    _error.value = error.message
+                    _error.value = Exception(error.message)
                 } else {
-                    _error.value = e.message
+                    _error.value = e
                 }
+                _isLoading.value = false
             }
         }
     }
@@ -59,10 +60,11 @@ class FollowViewModel : ViewModel() {
                 if (e is HttpException) {
                     val json = e.response()?.errorBody()?.string()
                     val error = Gson().fromJson(json, ErrorResponse::class.java)
-                    _error.value = error.message
+                    _error.value = Exception(error.message)
                 } else {
-                    _error.value = e.message
+                    _error.value = e
                 }
+                _isLoading.value = false
             }
         }
     }

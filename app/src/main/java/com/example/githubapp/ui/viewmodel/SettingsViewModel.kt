@@ -21,7 +21,7 @@ class SettingsViewModel(private val preferences: SettingsPreferences) : ViewMode
     fun getMode() {
         viewModelScope.launch {
             try {
-                preferences.getMode().collect {
+                preferences.loadMode().collect {
                     _getMode.value = it
                 }
             } catch (e: Exception) {
@@ -33,7 +33,7 @@ class SettingsViewModel(private val preferences: SettingsPreferences) : ViewMode
     fun setMode(isDarkModeActive: Boolean) {
         viewModelScope.launch {
             try {
-                preferences.setMode(isDarkModeActive)
+                preferences.saveMode(isDarkModeActive)
             } catch (e: Exception) {
                 _error.value = e.message
             }
