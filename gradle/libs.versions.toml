@@ -12,7 +12,7 @@ constraintlayout = "2.1.4"
 retrofit = "2.9.0"
 okhttp = "4.11.0"
 chucker = "4.0.0"
-viewModelKtx = "2.7.0"
+viewModelKtx = "2.8.0"
 navigationFragmentKtx = "2.7.7"
 navigationUiKtx = "2.7.7"
 legacySupportV4 = "1.0.0"
@@ -23,6 +23,8 @@ swiperefreshlayout = "1.2.0-alpha01"
 ksp = "1.9.23-1.0.20"
 shimmer = "0.5.0"
 datastore = "1.1.1"
+room = "2.6.1"
+lottie = "3.4.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -49,6 +51,10 @@ com-github-bumptech-glide-glide = { group = "com.github.bumptech.glide", name = 
 com-github-bumptech-glide-glide-compiler = { group = "com.github.bumptech.glide", name = "ksp", version.ref = "glide" }
 com-facebook-shimmer = { group = "com.facebook.shimmer", name = "shimmer", version.ref = "shimmer" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+com-airbnb-lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

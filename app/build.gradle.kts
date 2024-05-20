@@ -41,6 +41,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.com.airbnb.lottie)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.com.facebook.shimmer)
     implementation(libs.androidx.viewpager2)
@@ -57,6 +60,7 @@ dependencies {
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.no.op)
     ksp(libs.com.github.bumptech.glide.glide.compiler)
+    ksp(libs.androidx.room.compiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
