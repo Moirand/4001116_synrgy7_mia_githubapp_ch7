@@ -1,11 +1,19 @@
 package com.example.githubapp.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.core.view.MenuProvider
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -15,12 +23,20 @@ import com.example.githubapp.ui.adapter.ViewPagerAdapter
 import com.example.githubapp.ui.utill.loadImageUrl
 import com.example.githubapp.ui.utill.toDate
 import com.example.githubapp.ui.viewmodel.DetailUserViewModel
+import com.example.githubapp.ui.viewmodel.DetailUserViewModelFactory
 import com.google.android.material.tabs.TabLayoutMediator
 
-class DetailUserFragment : Fragment() {
+private val Context.datastore: DataStore<Preferences> by preferencesDataStore(name = "preferences")
+
+class DetailUserFragment : Fragment(), MenuProvider {
     private lateinit var binding: FragmentDetailUserBinding
     private val args: DetailUserFragmentArgs by navArgs()
-    private val viewmodel: DetailUserViewModel by viewModels()
+    private val viewmodel: DetailUserViewModel by viewModels {
+        DetailUserViewModelFactory.getInstance(
+            requireContext(),
+            requireContext().datastore
+        )
+    }
 
     @StringRes
     private val tabTitles = intArrayOf(
@@ -32,6 +48,7 @@ class DetailUserFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        activity?.addMenuProvider(this, viewLifecycleOwner)
         return FragmentDetailUserBinding.inflate(inflater, container, false).also {
             binding = it
         }.root
@@ -40,6 +57,7 @@ class DetailUserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewmodel.getArgs(args)
+        viewmodel.getFavoriteList()
         viewmodel.getDetailUser(binding.root.context)
 
         viewmodel.detailUser.observe(viewLifecycleOwner) {
@@ -84,12 +102,35 @@ class DetailUserFragment : Fragment() {
             }
         }
 
-        viewmodel.error.observe(viewLifecycleOwner) {
+        viewmodel.error.observe(viewLifecycleOwner) { error ->
             binding.layoutShimmer.apply {
                 visibility = View.GONE
                 stopShimmer()
             }
-            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_fragment_detail, menu)
+        val favoriteMenu = menu.findItem(R.id.menu_favorite)
+
+        viewmodel.isFavorited.observe(viewLifecycleOwner) { isFavorited ->
+            if (isFavorited) {
+                favoriteMenu.setIcon(R.drawable.ic_favorited)
+            } else {
+                favoriteMenu.setIcon(R.drawable.ic_favorite)
+            }
+        }
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            R.id.menu_favorite -> {
+                viewmodel.updateFavorite()
+                true
+            }
+            else -> false
         }
     }
 }

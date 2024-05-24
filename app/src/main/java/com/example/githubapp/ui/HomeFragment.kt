@@ -148,6 +148,13 @@ class HomeFragment : Fragment(), MenuProvider {
                 true
             }
 
+            R.id.menu_favorite -> {
+                binding.root.findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToFavoriteFragment()
+                )
+                true
+            }
+
             else -> false
         }
     }

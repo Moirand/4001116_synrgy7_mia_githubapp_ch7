@@ -14,10 +14,12 @@ class UserRepositoryImpl(private val userDao: UserDao) : UserRepository {
     }
 
     override suspend fun updateFavoriteList(id: Int, favoriteList: List<String>?) {
-        return userDao.updateFavoriteList(id, favoriteList)
+        val favoriteListString = favoriteList?.joinToString(",")
+        userDao.updateFavoriteList(id, favoriteListString)
     }
 
-    override suspend fun getFavoriteList(userId: Int): List<String>? {
-        return userDao.getFavoriteList(userId)
+    override suspend fun getFavoriteList(userId: Int): List<String> {
+        val favoriteListString = userDao.getFavoriteList(userId)
+        return favoriteListString?.split(",")?.map { it.trim() } ?: listOf()
     }
 }
