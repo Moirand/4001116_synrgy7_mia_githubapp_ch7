@@ -21,5 +21,5 @@ class UserEntity(
     val password: String,
 
     @ColumnInfo(name = "favoriteList")
-    val favoriteList: List<String>? = null
+    val favoriteList: String? = null
 ) : Serializable

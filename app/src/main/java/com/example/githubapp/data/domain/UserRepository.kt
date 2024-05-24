@@ -8,7 +8,7 @@ interface UserRepository {
     suspend fun getUserById(id: Int): UserEntity
     suspend fun getUserIdByEmail(email: String): Int
     suspend fun updateFavoriteList(id: Int, favoriteList: List<String>?)
-    suspend fun getFavoriteList(userId: Int): List<String>?
+    suspend fun getFavoriteList(userId: Int): List<String>
 
     companion object {
         @Volatile
