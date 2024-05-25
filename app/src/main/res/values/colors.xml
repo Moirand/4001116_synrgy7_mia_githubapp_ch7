@@ -2,4 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#DDDDDD</color>
+
+    <color name="lightPrimary">#D2D180</color>
+    <color name="lightPrimaryVariant">#B2B377</color>
+    <color name="lightSecondary">#F1F5A8</color>
+    <color name="lightSecondaryVariant">#E5E483</color>
+
+    <color name="darkPrimary">#1B4242</color>
+    <color name="darkPrimaryVariant">#1B4242</color>
+    <color name="darkSecondary">#1B4242</color>
+    <color name="darkSecondaryVariant">#5C8374</color>
 </resources>
