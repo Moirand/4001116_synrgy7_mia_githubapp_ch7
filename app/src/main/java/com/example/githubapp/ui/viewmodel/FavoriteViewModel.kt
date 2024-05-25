@@ -40,6 +40,7 @@ class FavoriteViewModel(
                 preferences.loadUserId().collect { id ->
                     _isLoading.value = true
                     _userId = id
+                    _listUsers.clear()
                     val listFavorite = userRepository.getFavoriteList(_userId)
                     listFavorite.forEach {
                         _listUsers.add(
