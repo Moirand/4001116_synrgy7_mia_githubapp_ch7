@@ -1,6 +1,5 @@
 package com.example.githubapp.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,24 +7,14 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.example.githubapp.databinding.FragmentSettingsBinding
 import com.example.githubapp.ui.viewmodel.SettingsViewModel
-import com.example.githubapp.ui.viewmodel.SettingsViewModelFactory
-
-private val Context.datastore: DataStore<Preferences> by preferencesDataStore(name = "preferences")
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
-    private val viewmodel: SettingsViewModel by viewModels {
-        SettingsViewModelFactory.getInstance(
-            requireContext().datastore
-        )
-    }
+    private val viewmodel: SettingsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

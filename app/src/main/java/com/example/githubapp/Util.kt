@@ -1,9 +1,9 @@
-package com.example.githubapp.ui.utill
+package com.example.githubapp
 
 import android.content.Context
 import com.bumptech.glide.Glide
-import com.example.githubapp.data.remote.response.DetailUserResponse
-import com.example.githubapp.data.remote.response.UserResponseItem
+import com.example.domain.model.ApiDetailUser
+import com.example.domain.model.ApiUser
 import com.google.android.material.imageview.ShapeableImageView
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -15,6 +15,7 @@ fun ShapeableImageView.loadImageUrl(context: Context, url: String?) {
             .into(this)
     }
 }
+
 fun String.toDate(): String {
     val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
     val outputFormat = SimpleDateFormat("d MMM yyyy", Locale.getDefault())
@@ -27,8 +28,8 @@ fun generateToken(): String {
     return (1..20).map { allowedChars.random() }.joinToString("")
 }
 
-fun DetailUserResponse.toUserResponseItem(): UserResponseItem{
-    return UserResponseItem(
+fun ApiDetailUser.toApiUser(): ApiUser {
+    return ApiUser(
         gistsUrl = this.gistsUrl,
         reposUrl = this.reposUrl,
         followingUrl = this.followingUrl,

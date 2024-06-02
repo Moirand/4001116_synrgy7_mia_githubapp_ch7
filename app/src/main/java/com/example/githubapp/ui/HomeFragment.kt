@@ -1,6 +1,5 @@
 package com.example.githubapp.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -11,11 +10,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.view.MenuProvider
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
@@ -24,20 +19,13 @@ import com.example.githubapp.R
 import com.example.githubapp.databinding.FragmentHomeBinding
 import com.example.githubapp.ui.adapter.RecyclerViewAdapter
 import com.example.githubapp.ui.viewmodel.HomeViewModel
-import com.example.githubapp.ui.viewmodel.HomeViewModelFactory
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
-
-private val Context.datastore: DataStore<Preferences> by preferencesDataStore(name = "preferences")
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(), MenuProvider {
     private lateinit var binding: FragmentHomeBinding
-    private val viewmodel: HomeViewModel by viewModels {
-        HomeViewModelFactory.getInstance(
-            requireContext(),
-            requireContext().datastore
-        )
-    }
+    private val viewmodel: HomeViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,10 +50,10 @@ class HomeFragment : Fragment(), MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewmodel.getUsers(requireContext())
+        viewmodel.getUsers()
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
-            viewmodel.getUsers(requireContext())
+            viewmodel.getUsers()
         }
 
         viewmodel.isLoading.observe(viewLifecycleOwner) {
@@ -115,14 +103,14 @@ class HomeFragment : Fragment(), MenuProvider {
 
                     setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                         override fun onQueryTextSubmit(username: String): Boolean {
-                            viewmodel.getUsers(requireContext(), username)
+                            viewmodel.getUsers(username)
                             clearFocus()
                             return true
                         }
 
                         override fun onQueryTextChange(username: String): Boolean {
                             if (username.isBlank()) {
-                                viewmodel.getUsers(requireContext())
+                                viewmodel.getUsers()
                             }
                             return true
                         }

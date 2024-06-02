@@ -1,6 +1,5 @@
 package com.example.githubapp.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -11,32 +10,21 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.view.MenuProvider
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.githubapp.R
 import com.example.githubapp.databinding.FragmentDetailUserBinding
 import com.example.githubapp.ui.adapter.ViewPagerAdapter
-import com.example.githubapp.ui.utill.loadImageUrl
-import com.example.githubapp.ui.utill.toDate
+import com.example.githubapp.loadImageUrl
+import com.example.githubapp.toDate
 import com.example.githubapp.ui.viewmodel.DetailUserViewModel
-import com.example.githubapp.ui.viewmodel.DetailUserViewModelFactory
 import com.google.android.material.tabs.TabLayoutMediator
-
-private val Context.datastore: DataStore<Preferences> by preferencesDataStore(name = "preferences")
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailUserFragment : Fragment(), MenuProvider {
     private lateinit var binding: FragmentDetailUserBinding
     private val args: DetailUserFragmentArgs by navArgs()
-    private val viewmodel: DetailUserViewModel by viewModels {
-        DetailUserViewModelFactory.getInstance(
-            requireContext(),
-            requireContext().datastore
-        )
-    }
+    private val viewmodel: DetailUserViewModel by viewModel()
 
     @StringRes
     private val tabTitles = intArrayOf(
@@ -58,7 +46,7 @@ class DetailUserFragment : Fragment(), MenuProvider {
         super.onViewCreated(view, savedInstanceState)
         viewmodel.getArgs(args)
         viewmodel.getFavoriteList()
-        viewmodel.getDetailUser(binding.root.context)
+        viewmodel.getDetailUser()
 
         viewmodel.detailUser.observe(viewLifecycleOwner) {
             binding.tvType.text = it?.type ?: "-"
@@ -130,6 +118,7 @@ class DetailUserFragment : Fragment(), MenuProvider {
                 viewmodel.updateFavorite()
                 true
             }
+
             else -> false
         }
     }

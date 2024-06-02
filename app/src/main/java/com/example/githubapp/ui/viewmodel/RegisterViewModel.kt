@@ -1,20 +1,19 @@
 package com.example.githubapp.ui.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.githubapp.data.domain.AuthRepository
-import com.example.githubapp.data.local.room.UserEntity
-import com.example.githubapp.data.remote.response.ErrorResponse
-import com.example.githubapp.di.Injection
-import com.google.gson.Gson
+import com.example.domain.model.User
+import com.example.domain.usecase.FetchRoomUseCase
+import com.example.domain.usecase.HttpExceptionUseCase
+import com.example.domain.usecase.UpdateRoomUseCase
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 
-class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel() {
+class RegisterViewModel(
+    private val fetchRoomUseCase: FetchRoomUseCase,
+    private val updateRoomUseCase: UpdateRoomUseCase
+) : ViewModel() {
     private var _isEmailExist = MutableLiveData<Boolean>()
     val isEmailExist: LiveData<Boolean> = _isEmailExist
 
@@ -34,7 +33,7 @@ class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel(
         viewModelScope.launch {
             try {
                 _isLoading.value = true
-                _isEmailExist.value = authRepository.isEmailExist(email)
+                _isEmailExist.value = fetchRoomUseCase.getUserByEmail(email) != null
                 _isLoading.value = false
             } catch (e: Exception) {
                 _isLoading.value = false
@@ -47,7 +46,7 @@ class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel(
         viewModelScope.launch {
             try {
                 _isLoading.value = true
-                _isUsernameExist.value = authRepository.isUsernameExist(username)
+                _isUsernameExist.value = fetchRoomUseCase.getUserByUsername(username) != null
                 _isLoading.value = false
             } catch (e: Exception) {
                 _isLoading.value = false
@@ -60,8 +59,9 @@ class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel(
         viewModelScope.launch {
             try {
                 _isLoading.value = true
-                authRepository.insertUser(
-                    UserEntity(
+                updateRoomUseCase.insertUser(
+                    User(
+                        userId = 0,
                         username = username,
                         email = email,
                         password = password
@@ -69,32 +69,13 @@ class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel(
                 )
                 _isLoading.value = false
                 _isSuccess.value = true
+            } catch (e: HttpExceptionUseCase) {
+                _error.value = e
+                _isLoading.value = false
             } catch (e: Exception) {
-                if (e is HttpException) {
-                    val json = e.response()?.errorBody()?.string()
-                    val error = Gson().fromJson(json, ErrorResponse::class.java)
-                    _error.value = Exception(error.message)
-                } else {
-                    _error.value = e
-                }
+                _error.value = e
+                _isLoading.value = false
             }
         }
-    }
-}
-
-class RegisterViewModelFactory(private val userRepository: AuthRepository) :
-    ViewModelProvider.NewInstanceFactory() {
-    companion object {
-        @Volatile
-        private var instance: RegisterViewModelFactory? = null
-        fun getInstance(context: Context): RegisterViewModelFactory =
-            instance ?: synchronized(this) {
-                instance ?: RegisterViewModelFactory(Injection.provideAuthRepository(context))
-            }.also { instance = it }
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return RegisterViewModel(userRepository) as T
     }
 }

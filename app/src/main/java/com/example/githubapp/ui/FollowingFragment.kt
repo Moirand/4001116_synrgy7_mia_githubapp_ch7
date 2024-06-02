@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubapp.databinding.FragmentFollowBinding
 import com.example.githubapp.ui.adapter.RecyclerViewAdapter
 import com.example.githubapp.ui.adapter.ViewPagerAdapter
 import com.example.githubapp.ui.viewmodel.FollowViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FollowingFragment : Fragment() {
     private lateinit var binding: FragmentFollowBinding
-    private val viewmodel: FollowViewModel by viewModels()
+    private val viewmodel: FollowViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +40,7 @@ class FollowingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val username = arguments?.getString(ViewPagerAdapter.USERNAME)
         viewmodel.getUsername(username)
-        viewmodel.getFollowing(binding.root.context)
+        viewmodel.getFollowing()
 
         viewmodel.isLoading.observe(viewLifecycleOwner) {
             if (it) {
