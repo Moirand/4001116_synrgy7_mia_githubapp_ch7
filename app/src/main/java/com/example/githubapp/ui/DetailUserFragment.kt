@@ -1,6 +1,6 @@
 package com.example.githubapp.ui
 
-import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -11,32 +11,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.view.MenuProvider
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.githubapp.R
 import com.example.githubapp.databinding.FragmentDetailUserBinding
 import com.example.githubapp.ui.adapter.ViewPagerAdapter
-import com.example.githubapp.ui.utill.loadImageUrl
-import com.example.githubapp.ui.utill.toDate
 import com.example.githubapp.ui.viewmodel.DetailUserViewModel
-import com.example.githubapp.ui.viewmodel.DetailUserViewModelFactory
 import com.google.android.material.tabs.TabLayoutMediator
-
-private val Context.datastore: DataStore<Preferences> by preferencesDataStore(name = "preferences")
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailUserFragment : Fragment(), MenuProvider {
-    private lateinit var binding: FragmentDetailUserBinding
+    private val binding by lazy { FragmentDetailUserBinding.inflate(layoutInflater) }
+    private val viewmodel: DetailUserViewModel by viewModel()
     private val args: DetailUserFragmentArgs by navArgs()
-    private val viewmodel: DetailUserViewModel by viewModels {
-        DetailUserViewModelFactory.getInstance(
-            requireContext(),
-            requireContext().datastore
-        )
-    }
 
     @StringRes
     private val tabTitles = intArrayOf(
@@ -47,18 +34,13 @@ class DetailUserFragment : Fragment(), MenuProvider {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        activity?.addMenuProvider(this, viewLifecycleOwner)
-        return FragmentDetailUserBinding.inflate(inflater, container, false).also {
-            binding = it
-        }.root
-    }
-
+    ): View = binding.root
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.addMenuProvider(this, viewLifecycleOwner)
         viewmodel.getArgs(args)
         viewmodel.getFavoriteList()
-        viewmodel.getDetailUser(binding.root.context)
+        viewmodel.getDetailUser()
 
         viewmodel.detailUser.observe(viewLifecycleOwner) {
             binding.tvType.text = it?.type ?: "-"
@@ -68,15 +50,16 @@ class DetailUserFragment : Fragment(), MenuProvider {
             binding.tvCreated.text = (it?.createdAt ?: "-").toDate()
             binding.tvLocation.text = it?.location ?: "-"
             binding.tvRepository.text = (it?.publicRepos ?: "-").toString()
-            binding.ivAvatar.loadImageUrl(requireContext(), it?.avatarUrl)
+            binding.ivAvatar.loadImageUrl(requireContext(), Uri.parse(it?.avatarUrl))
 
             binding.viewPager.adapter =
                 ViewPagerAdapter(
-                    this, listOf(
+                    this,
+                    it?.login,
+                    listOf(
                         FollowerFragment(),
                         FollowingFragment()
-                    ),
-                    it?.login
+                    )
                 )
             TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
                 tab.text = when (position) {
@@ -86,8 +69,8 @@ class DetailUserFragment : Fragment(), MenuProvider {
             }.attach()
         }
 
-        viewmodel.isLoading.observe(viewLifecycleOwner) {
-            if (it) {
+        viewmodel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
                 binding.layoutContent.visibility = View.GONE
                 binding.layoutShimmer.apply {
                     visibility = View.VISIBLE
@@ -110,7 +93,6 @@ class DetailUserFragment : Fragment(), MenuProvider {
             Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
         }
     }
-
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_fragment_detail, menu)
         val favoriteMenu = menu.findItem(R.id.menu_favorite)
@@ -123,7 +105,6 @@ class DetailUserFragment : Fragment(), MenuProvider {
             }
         }
     }
-
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.menu_favorite -> {

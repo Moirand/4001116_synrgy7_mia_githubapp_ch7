@@ -1,43 +1,27 @@
 package com.example.githubapp.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.example.githubapp.R
 import com.example.githubapp.databinding.FragmentSplashBinding
 import com.example.githubapp.ui.viewmodel.SplashViewModel
-import com.example.githubapp.ui.viewmodel.SplashViewModelFactory
-
-private val Context.datastore: DataStore<Preferences> by preferencesDataStore(name = "preferences")
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashFragment : Fragment() {
-    private lateinit var binding: FragmentSplashBinding
-    private val viewmodel: SplashViewModel by viewModels {
-        SplashViewModelFactory.getInstance(
-            requireContext().datastore
-        )
-    }
+    private val binding by lazy { FragmentSplashBinding.inflate(layoutInflater) }
+    private val viewmodel: SplashViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return FragmentSplashBinding.inflate(inflater, container, false).also {
-            binding = it
-        }.root
-    }
-
+    ): View = binding.root
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewmodel.getMode()
@@ -49,17 +33,15 @@ class SplashFragment : Fragment() {
                 .build()
             binding.splashArt.pauseAnimation()
             if (isLoggedIn) {
-                binding.root.findNavController()
-                    .navigate(
-                        SplashFragmentDirections.actionSplashFragmentToHomeFragment(),
-                        options
-                    )
+                binding.root.findNavController().navigate(
+                    SplashFragmentDirections.actionSplashFragmentToHomeFragment(),
+                    options
+                )
             } else {
-                binding.root.findNavController()
-                    .navigate(
-                        SplashFragmentDirections.actionSplashFragmentToLoginFragment(),
-                        options
-                    )
+                binding.root.findNavController().navigate(
+                    SplashFragmentDirections.actionSplashFragmentToLoginFragment(),
+                    options
+                )
             }
         }
 
@@ -76,10 +58,10 @@ class SplashFragment : Fragment() {
                 binding.splashArt.playAnimation()
             }
         }
+
         viewmodel.error.observe(viewLifecycleOwner) { error ->
             Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
             binding.splashArt.pauseAnimation()
         }
     }
-
 }

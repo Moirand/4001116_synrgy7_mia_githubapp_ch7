@@ -6,22 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubapp.databinding.FragmentFollowBinding
 import com.example.githubapp.ui.adapter.RecyclerViewAdapter
 import com.example.githubapp.ui.adapter.ViewPagerAdapter
 import com.example.githubapp.ui.viewmodel.FollowViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FollowerFragment : Fragment() {
-    private lateinit var binding: FragmentFollowBinding
-    private val viewmodel: FollowViewModel by viewModels()
+    private val binding by lazy { FragmentFollowBinding.inflate(layoutInflater) }
+    private val viewmodel: FollowViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentFollowBinding.inflate(inflater, container, false)
+    ): View = binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val username = arguments?.getString(ViewPagerAdapter.USERNAME)
+        viewmodel.getUsername(username)
+        viewmodel.getFollowers()
+
         with(binding.list) {
             layoutManager = LinearLayoutManager(context)
             viewmodel.listFollowers.observe(viewLifecycleOwner) { listUsers ->
@@ -33,17 +38,9 @@ class FollowerFragment : Fragment() {
                 }
             }
         }
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val username = arguments?.getString(ViewPagerAdapter.USERNAME)
-        viewmodel.getUsername(username)
-        viewmodel.getFollowers(binding.root.context)
-
-        viewmodel.isLoading.observe(viewLifecycleOwner) {
-            if (it) {
+        viewmodel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
                 binding.list.removeAllViewsInLayout()
                 binding.layoutShimmer.apply {
                     visibility = View.VISIBLE
