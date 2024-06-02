@@ -7,12 +7,7 @@ class FetchPreferencesUseCase(
     private val authPreferences: AuthPreferences,
     private val settingsPreferences: SettingsPreferences
 ) {
-    suspend fun loadMode(): Boolean? =
-        settingsPreferences.loadMode()
-
-    suspend fun loadToken(): String? =
-        authPreferences.loadToken()
-
-    suspend fun loadUserId(): Int? =
-        authPreferences.loadUserId()
+    suspend fun loadMode(): Boolean = settingsPreferences.loadMode()
+    suspend fun loadToken(): String? = authPreferences.loadToken()
+    suspend fun loadUserId(): Int? = authPreferences.loadUserId()
 }

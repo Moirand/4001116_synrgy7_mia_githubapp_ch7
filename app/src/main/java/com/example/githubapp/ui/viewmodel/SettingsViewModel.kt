@@ -15,25 +15,25 @@ class SettingsViewModel(
     private val _getMode = MutableLiveData<Boolean>()
     val getMode: LiveData<Boolean> = _getMode
 
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String> = _error
+    private val _error = MutableLiveData<Exception>()
+    val error: LiveData<Exception> = _error
 
     fun getMode() {
         viewModelScope.launch {
             try {
                 _getMode.value = fetchPreferencesUseCase.loadMode()
             } catch (e: Exception) {
-                _error.value = e.message
+                _error.value = e
             }
         }
     }
-
     fun setMode(isDarkModeActive: Boolean) {
         viewModelScope.launch {
             try {
                 updatePreferencesUseCase.saveMode(isDarkModeActive)
+                _getMode.value = isDarkModeActive
             } catch (e: Exception) {
-                _error.value = e.message
+                _error.value = e
             }
         }
     }
