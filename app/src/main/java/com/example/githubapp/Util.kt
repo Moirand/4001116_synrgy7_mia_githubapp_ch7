@@ -1,6 +1,8 @@
 package com.example.githubapp
 
 import android.content.Context
+import android.net.Uri
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.bumptech.glide.Glide
 import com.example.domain.model.ApiDetailUser
 import com.example.domain.model.ApiUser
@@ -8,10 +10,10 @@ import com.google.android.material.imageview.ShapeableImageView
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-fun ShapeableImageView.loadImageUrl(context: Context, url: String?) {
-    url?.let {
+fun ShapeableImageView.loadImageUrl(context: Context, uri: Uri?) {
+    uri?.let {
         Glide.with(context)
-            .load(url)
+            .load(uri)
             .into(this)
     }
 }

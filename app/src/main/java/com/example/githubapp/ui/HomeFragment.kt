@@ -143,6 +143,13 @@ class HomeFragment : Fragment(), MenuProvider {
                 true
             }
 
+            R.id.menu_profile -> {
+                binding.root.findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToProfileFragment()
+                )
+                true
+            }
+
             else -> false
         }
     }

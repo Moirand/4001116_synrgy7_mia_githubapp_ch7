@@ -1,5 +1,6 @@
 package com.example.githubapp.ui
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -56,7 +57,7 @@ class DetailUserFragment : Fragment(), MenuProvider {
             binding.tvCreated.text = (it?.createdAt ?: "-").toDate()
             binding.tvLocation.text = it?.location ?: "-"
             binding.tvRepository.text = (it?.publicRepos ?: "-").toString()
-            binding.ivAvatar.loadImageUrl(requireContext(), it?.avatarUrl)
+            binding.ivAvatar.loadImageUrl(requireContext(), Uri.parse(it?.avatarUrl))
 
             binding.viewPager.adapter =
                 ViewPagerAdapter(

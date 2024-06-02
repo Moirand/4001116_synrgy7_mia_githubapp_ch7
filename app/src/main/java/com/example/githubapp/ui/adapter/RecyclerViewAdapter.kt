@@ -1,5 +1,6 @@
 package com.example.githubapp.ui.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavDirections
@@ -32,7 +33,7 @@ class RecyclerViewAdapter(
     inner class ViewHolder(private val binding: FragmentItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ApiUser) {
-            binding.ivAvatar.loadImageUrl(binding.root.context, data.avatarUrl)
+            binding.ivAvatar.loadImageUrl(binding.root.context, Uri.parse(data.avatarUrl))
             data.login?.let { username ->
                 binding.tvUsername.text = username
                 binding.cardUserItem.setOnClickListener {
