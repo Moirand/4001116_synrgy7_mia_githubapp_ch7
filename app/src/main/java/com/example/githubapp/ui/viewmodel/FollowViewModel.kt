@@ -9,7 +9,9 @@ import com.example.domain.usecase.FetchApiUseCase
 import com.example.domain.usecase.HttpExceptionUseCase
 import kotlinx.coroutines.launch
 
-class FollowViewModel(private val fetchApiUseCase: FetchApiUseCase) : ViewModel() {
+class FollowViewModel(
+    private val fetchApiUseCase: FetchApiUseCase
+) : ViewModel() {
     private lateinit var _username: String
 
     private val _listFollowers = MutableLiveData<List<ApiUser>>()
@@ -27,7 +29,6 @@ class FollowViewModel(private val fetchApiUseCase: FetchApiUseCase) : ViewModel(
     fun getUsername(username: String?) {
         _username = username ?: ""
     }
-
     fun getFollowers() {
         viewModelScope.launch {
             try {
@@ -43,7 +44,6 @@ class FollowViewModel(private val fetchApiUseCase: FetchApiUseCase) : ViewModel(
             }
         }
     }
-
     fun getFollowing() {
         viewModelScope.launch {
             try {

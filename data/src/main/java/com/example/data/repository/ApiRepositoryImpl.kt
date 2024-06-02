@@ -13,7 +13,9 @@ import com.example.domain.usecase.HttpExceptionUseCase
 import com.google.gson.Gson
 import retrofit2.HttpException
 
-class ApiRepositoryImpl(private val apiService: ApiService) : ApiRepository {
+class ApiRepositoryImpl(
+    private val apiService: ApiService
+) : ApiRepository {
     override suspend fun getAllUsers(): List<ApiUser> =
         try {
             apiService.getAllUsers().map { it.toApiUser() }
@@ -22,7 +24,6 @@ class ApiRepositoryImpl(private val apiService: ApiService) : ApiRepository {
             val error = Gson().fromJson(json, ErrorResponse::class.java)
             throw HttpExceptionUseCase(error.message, e)
         }
-
     override suspend fun getSearchedUsername(username: String): ApiSearchUser =
         try {
             apiService.getSearchedUsername(username).toApiSearchUser()
@@ -31,7 +32,6 @@ class ApiRepositoryImpl(private val apiService: ApiService) : ApiRepository {
             val error = Gson().fromJson(json, ErrorResponse::class.java)
             throw HttpExceptionUseCase(error.message, e)
         }
-
     override suspend fun getDetailUser(username: String): ApiDetailUser =
         try {
             apiService.getDetailUser(username).toApiDetailUser()
@@ -40,7 +40,6 @@ class ApiRepositoryImpl(private val apiService: ApiService) : ApiRepository {
             val error = Gson().fromJson(json, ErrorResponse::class.java)
             throw HttpExceptionUseCase(error.message, e)
         }
-
     override suspend fun getFollowers(username: String): List<ApiUser> =
         try {
             apiService.getFollowers(username).map { it.toApiUser() }
@@ -49,7 +48,6 @@ class ApiRepositoryImpl(private val apiService: ApiService) : ApiRepository {
             val error = Gson().fromJson(json, ErrorResponse::class.java)
             throw HttpExceptionUseCase(error.message, e)
         }
-
     override suspend fun getFollowing(username: String): List<ApiUser> =
         try {
             apiService.getFollowing(username).map { it.toApiUser() }

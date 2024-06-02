@@ -16,18 +16,13 @@ import com.example.githubapp.ui.viewmodel.RegisterViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterFragment : Fragment() {
-    private lateinit var binding: FragmentRegisterBinding
+    private val binding by lazy { FragmentRegisterBinding.inflate(layoutInflater) }
     private val viewmodel: RegisterViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return FragmentRegisterBinding.inflate(inflater, container, false).also {
-            binding = it
-        }.root
-    }
-
+    ): View = binding.root
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewmodel.checkEmail(binding.edtEmail.text.toString())
@@ -58,20 +53,20 @@ class RegisterFragment : Fragment() {
         })
 
         binding.btnSignup.setOnClickListener {
-            if (viewmodel.isUsernameExist.value == false
-                || viewmodel.isEmailExist.value == false
-            ) {
+            if (viewmodel.isUsernameExist.value == false || viewmodel.isEmailExist.value == false) {
                 viewmodel.register(
                     username = binding.edtUsername.text.toString(),
                     email = binding.edtEmail.text.toString(),
                     password = binding.edtPassword.text.toString()
                 )
             } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Username atau Email sudah terdaftar",
-                    Toast.LENGTH_LONG
-                ).show()
+                Toast.makeText(requireContext(), "Username atau Email sudah terdaftar", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        viewmodel.isSuccess.observe(viewLifecycleOwner) { isSuccess ->
+            if (isSuccess) {
+                clearStackAndMoveToSuccessFragment()
             }
         }
 
@@ -80,12 +75,6 @@ class RegisterFragment : Fragment() {
                 binding.flipperBtnRegister.displayedChild = 1
             } else {
                 binding.flipperBtnRegister.displayedChild = 0
-            }
-        }
-
-        viewmodel.isSuccess.observe(viewLifecycleOwner) { isSuccess ->
-            if (isSuccess) {
-                clearStackAndMoveToSuccessFragment()
             }
         }
 

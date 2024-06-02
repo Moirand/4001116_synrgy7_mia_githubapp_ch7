@@ -15,18 +15,13 @@ import com.example.githubapp.ui.viewmodel.SplashViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashFragment : Fragment() {
-    private lateinit var binding: FragmentSplashBinding
+    private val binding by lazy { FragmentSplashBinding.inflate(layoutInflater) }
     private val viewmodel: SplashViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return FragmentSplashBinding.inflate(inflater, container, false).also {
-            binding = it
-        }.root
-    }
-
+    ): View = binding.root
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewmodel.getMode()
@@ -38,17 +33,15 @@ class SplashFragment : Fragment() {
                 .build()
             binding.splashArt.pauseAnimation()
             if (isLoggedIn) {
-                binding.root.findNavController()
-                    .navigate(
-                        SplashFragmentDirections.actionSplashFragmentToHomeFragment(),
-                        options
-                    )
+                binding.root.findNavController().navigate(
+                    SplashFragmentDirections.actionSplashFragmentToHomeFragment(),
+                    options
+                )
             } else {
-                binding.root.findNavController()
-                    .navigate(
-                        SplashFragmentDirections.actionSplashFragmentToLoginFragment(),
-                        options
-                    )
+                binding.root.findNavController().navigate(
+                    SplashFragmentDirections.actionSplashFragmentToLoginFragment(),
+                    options
+                )
             }
         }
 
@@ -65,10 +58,10 @@ class SplashFragment : Fragment() {
                 binding.splashArt.playAnimation()
             }
         }
+
         viewmodel.error.observe(viewLifecycleOwner) { error ->
             Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
             binding.splashArt.pauseAnimation()
         }
     }
-
 }

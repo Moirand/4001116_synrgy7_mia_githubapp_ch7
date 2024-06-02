@@ -16,16 +16,14 @@ import androidx.navigation.fragment.navArgs
 import com.example.githubapp.R
 import com.example.githubapp.databinding.FragmentDetailUserBinding
 import com.example.githubapp.ui.adapter.ViewPagerAdapter
-import com.example.githubapp.loadImageUrl
-import com.example.githubapp.toDate
 import com.example.githubapp.ui.viewmodel.DetailUserViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailUserFragment : Fragment(), MenuProvider {
-    private lateinit var binding: FragmentDetailUserBinding
-    private val args: DetailUserFragmentArgs by navArgs()
+    private val binding by lazy { FragmentDetailUserBinding.inflate(layoutInflater) }
     private val viewmodel: DetailUserViewModel by viewModel()
+    private val args: DetailUserFragmentArgs by navArgs()
 
     @StringRes
     private val tabTitles = intArrayOf(
@@ -36,15 +34,10 @@ class DetailUserFragment : Fragment(), MenuProvider {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        activity?.addMenuProvider(this, viewLifecycleOwner)
-        return FragmentDetailUserBinding.inflate(inflater, container, false).also {
-            binding = it
-        }.root
-    }
-
+    ): View = binding.root
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.addMenuProvider(this, viewLifecycleOwner)
         viewmodel.getArgs(args)
         viewmodel.getFavoriteList()
         viewmodel.getDetailUser()
@@ -61,11 +54,12 @@ class DetailUserFragment : Fragment(), MenuProvider {
 
             binding.viewPager.adapter =
                 ViewPagerAdapter(
-                    this, listOf(
+                    this,
+                    it?.login,
+                    listOf(
                         FollowerFragment(),
                         FollowingFragment()
-                    ),
-                    it?.login
+                    )
                 )
             TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
                 tab.text = when (position) {
@@ -75,8 +69,8 @@ class DetailUserFragment : Fragment(), MenuProvider {
             }.attach()
         }
 
-        viewmodel.isLoading.observe(viewLifecycleOwner) {
-            if (it) {
+        viewmodel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
                 binding.layoutContent.visibility = View.GONE
                 binding.layoutShimmer.apply {
                     visibility = View.VISIBLE
@@ -99,7 +93,6 @@ class DetailUserFragment : Fragment(), MenuProvider {
             Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
         }
     }
-
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_fragment_detail, menu)
         val favoriteMenu = menu.findItem(R.id.menu_favorite)
@@ -112,14 +105,12 @@ class DetailUserFragment : Fragment(), MenuProvider {
             }
         }
     }
-
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.menu_favorite -> {
                 viewmodel.updateFavorite()
                 true
             }
-
             else -> false
         }
     }

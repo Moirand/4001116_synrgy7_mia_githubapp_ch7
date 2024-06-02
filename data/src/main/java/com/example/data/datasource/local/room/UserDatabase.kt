@@ -8,5 +8,6 @@ abstract class UserDatabase : RoomDatabase() {
     companion object {
         const val DATABASE_NAME = "User.db"
     }
+
     abstract fun userDao(): UserDao
 }

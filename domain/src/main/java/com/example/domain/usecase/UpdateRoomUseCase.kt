@@ -11,11 +11,6 @@ class UpdateRoomUseCase(
     suspend fun insertUser(userEntity: User) {
         authRepository.insertUser(userEntity)
     }
-
-    suspend fun deleteUser(id: Int) =
-        authRepository.deleteUser(id)
-
-    suspend fun updateFavoriteList(id: Int?, favoriteList: List<String>?) {
-        userRepository.updateFavoriteList(id, favoriteList)
-    }
+    suspend fun deleteUser(id: Int) = authRepository.deleteUser(id)
+    suspend fun updateFavoriteList(id: Int?, favoriteList: List<String>?) = userRepository.updateFavoriteList(id, favoriteList)
 }

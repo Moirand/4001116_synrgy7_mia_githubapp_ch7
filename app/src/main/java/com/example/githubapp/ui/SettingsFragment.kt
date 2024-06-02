@@ -13,21 +13,17 @@ import com.example.githubapp.ui.viewmodel.SettingsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsFragment : Fragment() {
-    private lateinit var binding: FragmentSettingsBinding
+    private val binding by lazy { FragmentSettingsBinding.inflate(layoutInflater) }
     private val viewmodel: SettingsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return FragmentSettingsBinding.inflate(inflater, container, false).also {
-            binding = it
-        }.root
-    }
-
+    ): View = binding.root
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewmodel.getMode()
+
         viewmodel.getMode.observe(viewLifecycleOwner) { isDarkModeActive ->
             if (isDarkModeActive) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -42,8 +38,8 @@ class SettingsFragment : Fragment() {
             viewmodel.setMode(isChecked)
         }
 
-        viewmodel.error.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+        viewmodel.error.observe(viewLifecycleOwner) { error ->
+            Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
         }
     }
 }

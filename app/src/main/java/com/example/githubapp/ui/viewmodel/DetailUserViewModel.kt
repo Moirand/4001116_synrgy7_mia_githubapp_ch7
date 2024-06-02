@@ -26,10 +26,8 @@ class DetailUserViewModel(
     private val _isFavorited = MutableLiveData<Boolean>()
     val isFavorited: LiveData<Boolean> = _isFavorited
 
-    private val _detailUser =
-        MutableLiveData<ApiDetailUser?>()
-    val detailUser: LiveData<ApiDetailUser?> =
-        _detailUser
+    private val _detailUser = MutableLiveData<ApiDetailUser?>()
+    val detailUser: LiveData<ApiDetailUser?> = _detailUser
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -40,23 +38,21 @@ class DetailUserViewModel(
     fun getArgs(arguments: DetailUserFragmentArgs) {
         _arguments = arguments
     }
-
     fun getDetailUser() {
-        try {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
                 _isLoading.value = true
                 _detailUser.value = fetchApiUseCase.getDetailUser(_arguments.username)
                 _isLoading.value = false
+            } catch (e: HttpExceptionUseCase) {
+                _error.value = e
+                _isLoading.value = false
+            } catch (e: Exception) {
+                _error.value = e
+                _isLoading.value = false
             }
-        } catch (e: HttpExceptionUseCase) {
-            _error.value = e
-            _isLoading.value = false
-        } catch (e: Exception) {
-            _error.value = e
-            _isLoading.value = false
         }
     }
-
     fun getFavoriteList() {
         viewModelScope.launch {
             try {
@@ -71,7 +67,6 @@ class DetailUserViewModel(
             }
         }
     }
-
     fun updateFavorite() {
         viewModelScope.launch {
             try {
@@ -95,7 +90,6 @@ class DetailUserViewModel(
             }
         }
     }
-
     private fun checkFavorite() {
         viewModelScope.launch {
             try {

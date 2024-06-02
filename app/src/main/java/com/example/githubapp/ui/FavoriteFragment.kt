@@ -13,15 +13,17 @@ import com.example.githubapp.ui.viewmodel.FavoriteViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteFragment : Fragment() {
-    private lateinit var binding: FragmentFavoriteBinding
+    private val binding by lazy { FragmentFavoriteBinding.inflate(layoutInflater) }
     private val viewmodel: FavoriteViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View = binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewmodel.getUsers()
 
-        binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         with(binding.list) {
             layoutManager = LinearLayoutManager(context)
             viewmodel.listUsers.observe(viewLifecycleOwner) { listUsers ->
@@ -33,19 +35,14 @@ class FavoriteFragment : Fragment() {
                 }
             }
         }
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewmodel.getUsers()
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
             viewmodel.getUsers()
         }
 
-        viewmodel.isLoading.observe(viewLifecycleOwner) {
-            if (it) {
+        viewmodel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
                 binding.list.visibility = View.GONE
                 binding.layoutShimmer.apply {
                     visibility = View.VISIBLE

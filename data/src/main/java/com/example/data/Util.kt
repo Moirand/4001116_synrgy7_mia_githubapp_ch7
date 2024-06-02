@@ -17,7 +17,6 @@ fun User.toUserEntity(): UserEntity =
         password = password,
         favoriteList = favoriteList
     )
-
 fun UserEntity.toUser(): User =
     User(
         userId = userId,
@@ -26,7 +25,12 @@ fun UserEntity.toUser(): User =
         password = password,
         favoriteList = favoriteList
     )
-
+fun SearchResponse.toApiSearchUser(): ApiSearchUser =
+    ApiSearchUser(
+        totalCount = totalCount,
+        incompleteResults = incompleteResults,
+        items = items?.map { it.toApiUser() }
+    )
 fun UserResponseItem.toApiUser(): ApiUser =
     ApiUser(
         gistsUrl = gistsUrl,
@@ -48,7 +52,6 @@ fun UserResponseItem.toApiUser(): ApiUser =
         nodeId = nodeId,
         organizationsUrl = organizationsUrl
     )
-
 fun DetailUserResponse.toApiDetailUser(): ApiDetailUser =
     ApiDetailUser(
         gistsUrl = gistsUrl,
@@ -83,11 +86,4 @@ fun DetailUserResponse.toApiDetailUser(): ApiDetailUser =
         name = name,
         location = location,
         nodeId = nodeId
-    )
-
-fun SearchResponse.toApiSearchUser(): ApiSearchUser =
-    ApiSearchUser(
-        totalCount = totalCount,
-        incompleteResults = incompleteResults,
-        items = items?.map { it.toApiUser() }
     )

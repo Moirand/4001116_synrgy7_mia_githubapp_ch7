@@ -20,14 +20,14 @@ class HomeViewModel(
     private val updatePreferencesUseCase: UpdatePreferencesUseCase,
     private val updateRoomUseCase: UpdateRoomUseCase,
 ) : ViewModel() {
+    private val _listUsers = MutableLiveData<List<ApiUser>?>()
+    val listUsers: LiveData<List<ApiUser>?> = _listUsers
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
     private val _error = MutableLiveData<Exception>()
     val error: LiveData<Exception> = _error
-
-    private val _listUsers = MutableLiveData<List<ApiUser>?>()
-    val listUsers: LiveData<List<ApiUser>?> = _listUsers
 
     fun getUsers(username: String? = null) {
         viewModelScope.launch {
@@ -48,7 +48,6 @@ class HomeViewModel(
             }
         }
     }
-
     fun deleteAccount() {
         viewModelScope.launch {
             try {
@@ -58,9 +57,8 @@ class HomeViewModel(
             }
         }
     }
-
-    fun signOut(): Deferred<Unit> {
-        return viewModelScope.async {
+    fun signOut(): Deferred<Unit> =
+        viewModelScope.async {
             try {
                 updatePreferencesUseCase.deleteToken()
                 updatePreferencesUseCase.deleteUserId()
@@ -68,5 +66,4 @@ class HomeViewModel(
                 _error.value = e
             }
         }
-    }
 }

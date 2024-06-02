@@ -20,11 +20,11 @@ class RegisterViewModel(
     private var _isUsernameExist = MutableLiveData<Boolean>()
     val isUsernameExist: LiveData<Boolean> = _isUsernameExist
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
-
     private val _isSuccess = MutableLiveData<Boolean>()
     val isSuccess: LiveData<Boolean> = _isSuccess
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
     private val _error = MutableLiveData<Exception>()
     val error: LiveData<Exception> = _error
@@ -41,7 +41,6 @@ class RegisterViewModel(
             }
         }
     }
-
     fun checkUsername(username: String) {
         viewModelScope.launch {
             try {
@@ -54,7 +53,6 @@ class RegisterViewModel(
             }
         }
     }
-
     fun register(username: String, email: String, password: String) {
         viewModelScope.launch {
             try {

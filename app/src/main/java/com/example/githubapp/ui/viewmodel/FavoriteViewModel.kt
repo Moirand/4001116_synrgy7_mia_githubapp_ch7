@@ -9,7 +9,7 @@ import com.example.domain.usecase.FetchApiUseCase
 import com.example.domain.usecase.FetchPreferencesUseCase
 import com.example.domain.usecase.FetchRoomUseCase
 import com.example.domain.usecase.HttpExceptionUseCase
-import com.example.githubapp.toApiUser
+import com.example.githubapp.ui.toApiUser
 import kotlinx.coroutines.launch
 
 class FavoriteViewModel(
@@ -19,14 +19,14 @@ class FavoriteViewModel(
 ) : ViewModel() {
     private var _userId: Int? = null
 
+    private val _listUsers: MutableList<ApiUser> = mutableListOf()
+    val listUsers: LiveData<List<ApiUser>> = MutableLiveData(_listUsers)
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
     private val _error = MutableLiveData<Exception>()
     val error: LiveData<Exception> = _error
-
-    private val _listUsers: MutableList<ApiUser> = mutableListOf()
-    val listUsers: LiveData<List<ApiUser>> = MutableLiveData(_listUsers)
 
     fun getUsers() {
         viewModelScope.launch {

@@ -8,7 +8,9 @@ import com.example.domain.datastore.SettingsPreferences
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 
-class SettingsPreferencesImpl(private val datastore: DataStore<Preferences>) : SettingsPreferences {
+class SettingsPreferencesImpl(
+    private val datastore: DataStore<Preferences>
+) : SettingsPreferences {
     companion object {
         private val MODE_KEY = booleanPreferencesKey("mode")
     }

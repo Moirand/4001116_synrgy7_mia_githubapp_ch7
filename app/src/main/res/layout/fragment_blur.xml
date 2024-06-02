@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:orientation="vertical">
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -78,7 +78,7 @@
                     android:id="@+id/cancel_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cancel"
+                    android:text="Batal"
                     android:visibility="gone" />
 
                 <ProgressBar
@@ -95,14 +95,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
-                android:text="Go" />
+                android:text="Mulai" />
 
             <Button
                 android:id="@+id/see_file_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
-                android:text="See File"
+                android:text="Lihat Hasil"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
@@ -111,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_marginHorizontal="12dp"
                 android:layout_height="wrap_content"
-                android:text="Pick File"
+                android:text="Pilih File"
                 android:visibility="visible" />
 
         </LinearLayout>

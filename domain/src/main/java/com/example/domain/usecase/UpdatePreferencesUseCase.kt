@@ -7,18 +7,9 @@ class UpdatePreferencesUseCase(
     private val authPreferences: AuthPreferences,
     private val settingsPreferences: SettingsPreferences
 ) {
-    suspend fun saveMode(mode: Boolean) =
-        settingsPreferences.saveMode(mode)
-
-    suspend fun saveToken(token: String) =
-        authPreferences.saveToken(token)
-
-    suspend fun deleteToken() =
-        authPreferences.deleteToken()
-
-    suspend fun saveUserId(userId: Int) =
-        authPreferences.saveUserId(userId)
-
-    suspend fun deleteUserId() =
-        authPreferences.deleteUserId()
+    suspend fun saveMode(mode: Boolean) = settingsPreferences.saveMode(mode)
+    suspend fun saveToken(token: String) = authPreferences.saveToken(token)
+    suspend fun deleteToken() = authPreferences.deleteToken()
+    suspend fun saveUserId(userId: Int) = authPreferences.saveUserId(userId)
+    suspend fun deleteUserId() = authPreferences.deleteUserId()
 }

@@ -34,10 +34,9 @@ class BlurViewModel(application: Application): ViewModel() {
         imageUri = getImageUri(application.applicationContext)
     }
 
-    internal fun cancelWork() {
-        workManager.cancelUniqueWork(IMAGE_MANIPULATION_WORK_NAME)
+    fun setImageUri(imageUri: Uri) {
+        this.imageUri = imageUri
     }
-
     private fun createInputDataForUri(): Data {
         val builder = Data.Builder()
         imageUri?.let {
@@ -45,21 +44,33 @@ class BlurViewModel(application: Application): ViewModel() {
         }
         return builder.build()
     }
-
+    private fun uriOrNull(uriString: String?): Uri? =
+        if (uriString.isNullOrEmpty()) null else Uri.parse(uriString)
+    private fun getImageUri(context: Context): Uri =
+        Uri.Builder()
+            .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+            .authority(context.resources.getResourcePackageName(R.drawable.ic_launcher_background))
+            .appendPath(context.resources.getResourceTypeName(R.drawable.ic_launcher_background))
+            .appendPath(context.resources.getResourceEntryName(R.drawable.ic_launcher_background))
+            .build()
+    internal fun setOutputUri(outputImageUri: String?) {
+        outputUri = uriOrNull(outputImageUri)
+    }
+    internal fun cancelWork() {
+        workManager.cancelUniqueWork(IMAGE_MANIPULATION_WORK_NAME)
+    }
     internal fun applyBlur(blurLevel: Int) {
-        var continuation = workManager
-            .beginUniqueWork(
-                IMAGE_MANIPULATION_WORK_NAME,
-                ExistingWorkPolicy.REPLACE,
-                OneTimeWorkRequest.from(CleanupWorker::class.java)
-            )
+        var continuation = workManager.beginUniqueWork(
+            IMAGE_MANIPULATION_WORK_NAME,
+            ExistingWorkPolicy.REPLACE,
+            OneTimeWorkRequest.from(CleanupWorker::class.java)
+        )
 
         for (i in 0 until blurLevel) {
             val blurBuilder = OneTimeWorkRequestBuilder<BlurWorker>()
             if (i == 0) {
                 blurBuilder.setInputData(createInputDataForUri())
             }
-
             continuation = continuation.then(blurBuilder.build())
         }
 
@@ -73,32 +84,5 @@ class BlurViewModel(application: Application): ViewModel() {
             .build()
         continuation = continuation.then(save)
         continuation.enqueue()
-    }
-
-    private fun uriOrNull(uriString: String?): Uri? {
-        return if (!uriString.isNullOrEmpty()) {
-            Uri.parse(uriString)
-        } else {
-            null
-        }
-    }
-
-    private fun getImageUri(context: Context): Uri {
-        val resources = context.resources
-
-        return Uri.Builder()
-            .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-            .authority(resources.getResourcePackageName(R.drawable.ic_launcher_background))
-            .appendPath(resources.getResourceTypeName(R.drawable.ic_launcher_background))
-            .appendPath(resources.getResourceEntryName(R.drawable.ic_launcher_background))
-            .build()
-    }
-
-    internal fun setOutputUri(outputImageUri: String?) {
-        outputUri = uriOrNull(outputImageUri)
-    }
-
-    fun setImageUri(imageUri: Uri) {
-        this.imageUri = imageUri
     }
 }

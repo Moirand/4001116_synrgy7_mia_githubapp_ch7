@@ -24,16 +24,18 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(), MenuProvider {
-    private lateinit var binding: FragmentHomeBinding
+    private val binding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
     private val viewmodel: HomeViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View = binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         activity?.addMenuProvider(this, viewLifecycleOwner)
+        viewmodel.getUsers()
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
         with(binding.list) {
             layoutManager = LinearLayoutManager(context)
             viewmodel.listUsers.observe(viewLifecycleOwner) { listUsers ->
@@ -45,19 +47,14 @@ class HomeFragment : Fragment(), MenuProvider {
                 }
             }
         }
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewmodel.getUsers()
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
             viewmodel.getUsers()
         }
 
-        viewmodel.isLoading.observe(viewLifecycleOwner) {
-            if (it) {
+        viewmodel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
                 binding.list.visibility = View.GONE
                 binding.layoutShimmer.apply {
                     visibility = View.VISIBLE
@@ -81,11 +78,9 @@ class HomeFragment : Fragment(), MenuProvider {
             Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
         }
     }
-
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_fragment_home, menu)
     }
-
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.menu_settings -> {
@@ -94,7 +89,6 @@ class HomeFragment : Fragment(), MenuProvider {
                 )
                 true
             }
-
             R.id.menu_search -> {
                 (menuItem.actionView as SearchView).apply {
                     isFocusable = true
@@ -118,7 +112,6 @@ class HomeFragment : Fragment(), MenuProvider {
                 }
                 true
             }
-
             R.id.menu_delete -> {
                 lifecycleScope.launch {
                     viewmodel.deleteAccount()
@@ -127,7 +120,6 @@ class HomeFragment : Fragment(), MenuProvider {
                 }
                 true
             }
-
             R.id.menu_signout -> {
                 lifecycleScope.launch {
                     awaitAll(viewmodel.signOut())
@@ -135,40 +127,34 @@ class HomeFragment : Fragment(), MenuProvider {
                 }
                 true
             }
-
             R.id.menu_favorite -> {
                 binding.root.findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToFavoriteFragment()
                 )
                 true
             }
-
             R.id.menu_profile -> {
                 binding.root.findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToProfileFragment()
                 )
                 true
             }
-
             R.id.menu_blur_feature -> {
                 binding.root.findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToBlurFragment()
                 )
                 true
             }
-
             else -> false
         }
     }
-
     private fun clearStackAndMoveToLoginFragment() {
         val options = NavOptions.Builder()
             .setPopUpTo(R.id.homeFragment, true)
             .build()
-        binding.root.findNavController()
-            .navigate(
-                HomeFragmentDirections.actionHomeFragmentToLoginFragment(),
-                options
-            )
+        binding.root.findNavController().navigate(
+            HomeFragmentDirections.actionHomeFragmentToLoginFragment(),
+            options
+        )
     }
 }

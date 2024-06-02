@@ -14,7 +14,6 @@ import androidx.lifecycle.Observer
 import androidx.work.WorkInfo
 import com.example.githubapp.R
 import com.example.githubapp.databinding.FragmentBlurBinding
-import com.example.githubapp.loadImageUrl
 import com.example.githubapp.ui.viewmodel.BlurViewModel
 import com.nareshchocha.filepickerlibrary.models.PickMediaConfig
 import com.nareshchocha.filepickerlibrary.models.PickMediaType
@@ -26,26 +25,26 @@ class BlurFragment : Fragment() {
         const val KEY_IMAGE_URI = "KEY_IMAGE_URI"
     }
 
+    private val binding by lazy { FragmentBlurBinding.inflate(layoutInflater) }
+    private val viewmodel: BlurViewModel by viewModel()
     private val filePickerResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
         ::handleFilePickerResult,
     )
-
-    private lateinit var binding: FragmentBlurBinding
-    private val viewmodel: BlurViewModel by viewModel()
+    private val blurLevel: Int
+        get() = when (binding.radioBlurGroup.checkedRadioButtonId) {
+            R.id.radio_blur_lv_1 -> 1
+            R.id.radio_blur_lv_2 -> 2
+            R.id.radio_blur_lv_3 -> 3
+            else -> 1
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return FragmentBlurBinding.inflate(inflater, container, false).also {
-            binding = it
-        }.root
-    }
-
+    ): View = binding.root
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.goButton.setOnClickListener { viewmodel.applyBlur(blurLevel) }
 
         binding.seeFileButton.setOnClickListener {
@@ -71,11 +70,9 @@ class BlurFragment : Fragment() {
             }
 
             val workInfo = listOfWorkInfo[0]
-
             if (workInfo.state.isFinished) {
                 showWorkFinished()
                 val outputImageUri = workInfo.outputData.getString(KEY_IMAGE_URI)
-
                 if (!outputImageUri.isNullOrEmpty()) {
                     viewmodel.setOutputUri(outputImageUri)
                     binding.seeFileButton.visibility = View.VISIBLE
@@ -86,16 +83,14 @@ class BlurFragment : Fragment() {
             }
         }
     }
-
     private fun showWorkInProgress() {
         with(binding) {
-            progressBar.visibility = View.VISIBLE
-            cancelButton.visibility = View.VISIBLE
             goButton.visibility = View.GONE
             seeFileButton.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+            cancelButton.visibility = View.VISIBLE
         }
     }
-
     private fun showWorkFinished() {
         with(binding) {
             progressBar.visibility = View.GONE
@@ -103,16 +98,6 @@ class BlurFragment : Fragment() {
             goButton.visibility = View.VISIBLE
         }
     }
-
-    private val blurLevel: Int
-        get() =
-            when (binding.radioBlurGroup.checkedRadioButtonId) {
-                R.id.radio_blur_lv_1 -> 1
-                R.id.radio_blur_lv_2 -> 2
-                R.id.radio_blur_lv_3 -> 3
-                else -> 1
-            }
-
     private fun openFilePicker() {
         filePickerResult.launch(
             FilePicker.Builder(requireContext())
@@ -124,7 +109,6 @@ class BlurFragment : Fragment() {
                 ),
         )
     }
-
     private fun handleFilePickerResult(result: ActivityResult) {
         if (result.resultCode == Activity.RESULT_OK) {
             result.data?.data?.let {

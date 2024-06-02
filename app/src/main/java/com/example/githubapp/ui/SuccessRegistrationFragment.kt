@@ -11,28 +11,22 @@ import com.example.githubapp.R
 import com.example.githubapp.databinding.FragmentSuccessRegistrationBinding
 
 class SuccessRegistrationFragment : Fragment() {
-    private lateinit var binding: FragmentSuccessRegistrationBinding
+    private val binding by lazy { FragmentSuccessRegistrationBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return FragmentSuccessRegistrationBinding.inflate(inflater, container, false).also {
-            binding = it
-        }.root
-    }
-
+    ): View = binding.root
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnToSignin.setOnClickListener {
             val options = NavOptions.Builder()
                 .setPopUpTo(R.id.loginFragment, true)
                 .build()
-            binding.root.findNavController()
-                .navigate(
-                    SuccessRegistrationFragmentDirections.actionSuccessRegistrationFragmentToLoginFragment(),
-                    options
-                )
+            binding.root.findNavController().navigate(
+                SuccessRegistrationFragmentDirections.actionSuccessRegistrationFragmentToLoginFragment(),
+                options
+            )
         }
     }
 }

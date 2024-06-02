@@ -1,8 +1,7 @@
-package com.example.githubapp
+package com.example.githubapp.ui
 
 import android.content.Context
 import android.net.Uri
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.bumptech.glide.Glide
 import com.example.domain.model.ApiDetailUser
 import com.example.domain.model.ApiUser
@@ -17,19 +16,12 @@ fun ShapeableImageView.loadImageUrl(context: Context, uri: Uri?) {
             .into(this)
     }
 }
-
 fun String.toDate(): String {
     val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
     val outputFormat = SimpleDateFormat("d MMM yyyy", Locale.getDefault())
 
     return outputFormat.format(inputFormat.parse(this))
 }
-
-fun generateToken(): String {
-    val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
-    return (1..20).map { allowedChars.random() }.joinToString("")
-}
-
 fun ApiDetailUser.toApiUser(): ApiUser {
     return ApiUser(
         gistsUrl = this.gistsUrl,

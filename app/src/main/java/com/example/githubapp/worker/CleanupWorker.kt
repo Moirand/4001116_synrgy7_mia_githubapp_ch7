@@ -7,7 +7,6 @@ import androidx.work.WorkerParameters
 import java.io.File
 
 class CleanupWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
-
     override fun doWork(): Result {
         makeStatusNotification("Cleaning up old temporary files", applicationContext)
         sleep()

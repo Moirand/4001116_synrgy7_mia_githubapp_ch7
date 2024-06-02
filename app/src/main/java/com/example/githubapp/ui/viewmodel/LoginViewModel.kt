@@ -14,11 +14,11 @@ class LoginViewModel(
     private val fetchRoomUseCase: FetchRoomUseCase,
     private val updatePreferencesUseCase: UpdatePreferencesUseCase
 ) : ViewModel() {
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
-
     private val _isSuccess = MutableLiveData<Boolean>()
     val isSuccess: LiveData<Boolean> = _isSuccess
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
     private val _error = MutableLiveData<Exception>()
     val error: LiveData<Exception> = _error
@@ -36,9 +36,8 @@ class LoginViewModel(
             }
         }
     }
-
-    fun saveToken(token: String): Deferred<Unit> {
-        return viewModelScope.async {
+    fun saveToken(token: String): Deferred<Unit> =
+        viewModelScope.async {
             try {
                 _isLoading.value = true
                 updatePreferencesUseCase.saveToken(token)
@@ -49,11 +48,8 @@ class LoginViewModel(
                 _isSuccess.value = false
             }
         }
-    }
-
-
-    fun saveUserId(email: String): Deferred<Unit> {
-        return viewModelScope.async {
+    fun saveUserId(email: String): Deferred<Unit> =
+        viewModelScope.async {
             try {
                 _isLoading.value = true
                 val userId = fetchRoomUseCase.getUserIdByEmail(email)
@@ -65,5 +61,4 @@ class LoginViewModel(
                 _isSuccess.value = false
             }
         }
-    }
 }

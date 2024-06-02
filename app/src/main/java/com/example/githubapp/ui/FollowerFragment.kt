@@ -14,14 +14,19 @@ import com.example.githubapp.ui.viewmodel.FollowViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FollowerFragment : Fragment() {
-    private lateinit var binding: FragmentFollowBinding
+    private val binding by lazy { FragmentFollowBinding.inflate(layoutInflater) }
     private val viewmodel: FollowViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentFollowBinding.inflate(inflater, container, false)
+    ): View = binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val username = arguments?.getString(ViewPagerAdapter.USERNAME)
+        viewmodel.getUsername(username)
+        viewmodel.getFollowers()
+
         with(binding.list) {
             layoutManager = LinearLayoutManager(context)
             viewmodel.listFollowers.observe(viewLifecycleOwner) { listUsers ->
@@ -33,17 +38,9 @@ class FollowerFragment : Fragment() {
                 }
             }
         }
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val username = arguments?.getString(ViewPagerAdapter.USERNAME)
-        viewmodel.getUsername(username)
-        viewmodel.getFollowers()
-
-        viewmodel.isLoading.observe(viewLifecycleOwner) {
-            if (it) {
+        viewmodel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
                 binding.list.removeAllViewsInLayout()
                 binding.layoutShimmer.apply {
                     visibility = View.VISIBLE

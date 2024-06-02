@@ -18,13 +18,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.example.githubapp.databinding.FragmentProfileBinding
-import com.example.githubapp.loadImageUrl
 import java.io.File
 
 class ProfileFragment : Fragment() {
-    private lateinit var binding: FragmentProfileBinding
+    private val binding by lazy { FragmentProfileBinding.inflate(layoutInflater) }
     private lateinit var uri: Uri
-
     private val permissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions(),
         ::handlePermissionResult,
@@ -43,15 +41,9 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return FragmentProfileBinding.inflate(inflater, container, false).also {
-            binding = it
-        }.root
-    }
-
+    ): View = binding.root
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.btnChangeProfilePicture.setOnClickListener {
             if (isWriteExternalStorageGranted() && isReadExternalStorageGranted() && isCameraGranted()) {
                 chooseImageDialog()
@@ -69,17 +61,6 @@ class ProfileFragment : Fragment() {
             Toast.makeText(requireContext(), "permission diterima", Toast.LENGTH_SHORT).show()
         }
     }
-
-    private fun handleGalleryResult(result: Uri?) {
-        binding.ivProfile.loadImageUrl(requireContext(), result)
-    }
-
-    private fun handleCameraResult(result: Boolean) {
-        if (result) {
-            binding.ivProfile.loadImageUrl(requireContext(), uri)
-        }
-    }
-
     private fun askPermission() {
         permissionRequest.launch(
             arrayOf(
@@ -89,25 +70,26 @@ class ProfileFragment : Fragment() {
             )
         )
     }
-
     private fun isWriteExternalStorageGranted(): Boolean =
         ContextCompat.checkSelfPermission(
             requireContext(),
             WRITE_EXTERNAL_STORAGE
         ) == PERMISSION_GRANTED
-
-
     private fun isReadExternalStorageGranted(): Boolean =
         ContextCompat.checkSelfPermission(
             requireContext(),
             READ_EXTERNAL_STORAGE
         ) == PERMISSION_GRANTED
-
-
     private fun isCameraGranted(): Boolean =
         ContextCompat.checkSelfPermission(requireContext(), CAMERA) == PERMISSION_GRANTED
-
-
+    private fun handleGalleryResult(result: Uri?) {
+        binding.ivProfile.loadImageUrl(requireContext(), result)
+    }
+    private fun handleCameraResult(result: Boolean) {
+        if (result) {
+            binding.ivProfile.loadImageUrl(requireContext(), uri)
+        }
+    }
     private fun chooseImageDialog() {
         AlertDialog.Builder(requireContext())
             .setMessage("Pilih Gambar")
@@ -115,13 +97,11 @@ class ProfileFragment : Fragment() {
             .setNegativeButton("Camera") { _, _ -> openCamera() }
             .show()
     }
-
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
         galleryResult.launch("image/*")
     }
-
     private fun openCamera() {
         val photoFile = File.createTempFile(
             "SYNRGY_",
