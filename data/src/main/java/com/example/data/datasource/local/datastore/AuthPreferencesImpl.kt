@@ -1,36 +1,25 @@
-package com.example.githubapp.data.local
+package com.example.data.datasource.local.datastore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.example.githubapp.data.domain.SettingsPreferences
-import kotlinx.coroutines.flow.Flow
+import com.example.domain.datastore.AuthPreferences
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.single
 
-class SettingsPreferencesImpl(private val datastore: DataStore<Preferences>) : SettingsPreferences {
-    private val MODE_KEY = booleanPreferencesKey("mode")
-    private val TOKEN_KEY = stringPreferencesKey("token")
-    private val ID_KEY = intPreferencesKey("userId")
-
-    override fun loadMode(): Flow<Boolean> {
-        return datastore.data.map { preferences ->
-            preferences[MODE_KEY] ?: false
-        }
+class AuthPreferencesImpl(private val datastore: DataStore<Preferences>) : AuthPreferences {
+    companion object {
+        private val TOKEN_KEY = stringPreferencesKey("token")
+        private val ID_KEY = intPreferencesKey("userId")
     }
 
-    override suspend fun saveMode(isDarkModeActive: Boolean) {
-        datastore.edit { preferences ->
-            preferences[MODE_KEY] = isDarkModeActive
-        }
-    }
-
-    override fun loadToken(): Flow<String?> {
+    override suspend fun loadToken(): String? {
         return datastore.data.map { preferences ->
             preferences[TOKEN_KEY]
-        }
+        }.firstOrNull()
     }
 
     override suspend fun saveToken(token: String) {
@@ -45,10 +34,10 @@ class SettingsPreferencesImpl(private val datastore: DataStore<Preferences>) : S
         }
     }
 
-    override fun loadUserId(): Flow<Int> {
+    override suspend fun loadUserId(): Int? {
         return datastore.data.map { preferences ->
-            preferences[ID_KEY] ?: -1
-        }
+            preferences[ID_KEY]
+        }.firstOrNull()
     }
 
     override suspend fun saveUserId(id: Int) {

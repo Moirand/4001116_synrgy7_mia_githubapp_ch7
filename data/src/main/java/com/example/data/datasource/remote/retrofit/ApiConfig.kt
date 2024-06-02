@@ -1,4 +1,4 @@
-package com.example.githubapp.data.remote.retrofit
+package com.example.data.datasource.remote.retrofit
 
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
@@ -48,6 +48,3 @@ object ApiConfig {
         return ChuckerInterceptor.Builder(context).build()
     }
 }
-
-
-
