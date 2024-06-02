@@ -26,6 +26,7 @@ datastore = "1.1.1"
 room = "2.6.1"
 lottie = "3.4.0"
 jetbrainsKotlinJvm = "1.9.23"
+koin = "3.5.6"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -56,6 +57,8 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 com-airbnb-lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
+koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin"}
+koin-android = { group = "io.insert-koin", name = "koin-android"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
