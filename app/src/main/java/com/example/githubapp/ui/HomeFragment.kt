@@ -150,6 +150,13 @@ class HomeFragment : Fragment(), MenuProvider {
                 true
             }
 
+            R.id.menu_blur_feature -> {
+                binding.root.findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToBlurFragment()
+                )
+                true
+            }
+
             else -> false
         }
     }

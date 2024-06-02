@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_blurFragment"
+            app:destination="@id/blurFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailUserFragment"
@@ -106,4 +109,9 @@
         android:name="com.example.githubapp.ui.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/blurFragment"
+        android:name="com.example.githubapp.ui.BlurFragment"
+        android:label="BlurFragment"
+        tools:layout="@layout/fragment_blur" />
 </navigation>

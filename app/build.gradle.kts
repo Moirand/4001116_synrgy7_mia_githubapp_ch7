@@ -44,6 +44,8 @@ dependencies {
     implementation(project(":di"))
     implementation(project(":domain"))
 
+    implementation(libs.io.chochanaresh.filepicker)
+    implementation(libs.androidx.work)
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.android)
     implementation(libs.com.airbnb.lottie)

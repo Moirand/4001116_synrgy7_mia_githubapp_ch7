@@ -1,5 +1,6 @@
 package com.example.githubapp.di
 
+import com.example.githubapp.ui.viewmodel.BlurViewModel
 import com.example.githubapp.ui.viewmodel.DetailUserViewModel
 import com.example.githubapp.ui.viewmodel.FavoriteViewModel
 import com.example.githubapp.ui.viewmodel.FollowViewModel
@@ -20,4 +21,5 @@ val viewModelModule = module {
     viewModel { FollowViewModel(get()) }
     viewModel { FavoriteViewModel(get(), get(), get()) }
     viewModel { DetailUserViewModel(get(), get(), get(), get()) }
+    viewModel { BlurViewModel(get()) }
 }
