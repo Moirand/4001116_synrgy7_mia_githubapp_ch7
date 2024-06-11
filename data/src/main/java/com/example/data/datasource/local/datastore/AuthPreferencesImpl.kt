@@ -8,14 +8,13 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import com.example.domain.datastore.AuthPreferences
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.single
 
 class AuthPreferencesImpl(
     private val datastore: DataStore<Preferences>
 ) : AuthPreferences {
     companion object {
-        private val TOKEN_KEY = stringPreferencesKey("token")
-        private val ID_KEY = intPreferencesKey("userId")
+        val TOKEN_KEY = stringPreferencesKey("token")
+        val ID_KEY = intPreferencesKey("userId")
     }
 
     override suspend fun loadToken(): String? =

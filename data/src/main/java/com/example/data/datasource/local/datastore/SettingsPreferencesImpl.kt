@@ -12,7 +12,7 @@ class SettingsPreferencesImpl(
     private val datastore: DataStore<Preferences>
 ) : SettingsPreferences {
     companion object {
-        private val MODE_KEY = booleanPreferencesKey("mode")
+        val MODE_KEY = booleanPreferencesKey("mode")
     }
 
     override suspend fun loadMode(): Boolean =

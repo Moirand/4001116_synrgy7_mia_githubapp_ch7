@@ -25,17 +25,21 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "${JavaVersion.VERSION_11}"
     }
 }
 
 dependencies {
     implementation(project(":domain"))
 
+    testImplementation(libs.org.mockito.kotlin)
+    testImplementation(libs.org.mockito.coroutine)
+    testImplementation(libs.org.mockito.inline)
+    testImplementation(libs.androidx.core.testing)
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
     implementation(libs.okhttp.logging.interceptor)
