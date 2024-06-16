@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="5" by="lint Jellyfish | 2023.3.1 Patch 1">
+
+    <issue
+        id="MissingPermission"
+        message="Call requires permission which may be rejected by user: code should explicitly check to see if permission is available (with `checkPermission`) or explicitly handle a potential `SecurityException`">
+        <location
+            file="src/main/java/com/example/githubapp/worker/Util.kt"
+            line="46"/>
+    </issue>
+
+    <issue
+        id="MissingPermission"
+        message="Call requires permission which may be rejected by user: code should explicitly check to see if permission is available (with `checkPermission`) or explicitly handle a potential `SecurityException`">
+        <location
+            file="src/main/java/com/example/githubapp/worker/Util.kt"
+            line="46"/>
+    </issue>
+
+    <issue
+        id="DuplicateIncludedIds"
+        message="Duplicate id @+id/iv_avatar, defined or included multiple times in layout/fragment_detail_user.xml: [layout/fragment_detail_user.xml defines @+id/iv_avatar, layout/fragment_detail_user.xml => layout/fragment_detail_user_shimmer.xml defines @+id/iv_avatar]">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="246"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="18"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="12"/>
+    </issue>
+
+    <issue
+        id="DuplicateIncludedIds"
+        message="Duplicate id @+id/tab_layout, defined or included multiple times in layout/fragment_detail_user.xml: [layout/fragment_detail_user.xml defines @+id/tab_layout, layout/fragment_detail_user.xml => layout/fragment_detail_user_shimmer.xml defines @+id/tab_layout]">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="246"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="227"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="227"/>
+    </issue>
+
+    <issue
+        id="DuplicateIncludedIds"
+        message="Duplicate id @+id/tv_company, defined or included multiple times in layout/fragment_detail_user.xml: [layout/fragment_detail_user.xml defines @+id/tv_company, layout/fragment_detail_user.xml => layout/fragment_detail_user_shimmer.xml defines @+id/tv_company]">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="246"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="189"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="187"/>
+    </issue>
+
+    <issue
+        id="DuplicateIncludedIds"
+        message="Duplicate id @+id/tv_created, defined or included multiple times in layout/fragment_detail_user.xml: [layout/fragment_detail_user.xml defines @+id/tv_created, layout/fragment_detail_user.xml => layout/fragment_detail_user_shimmer.xml defines @+id/tv_created]">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="246"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="88"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="83"/>
+    </issue>
+
+    <issue
+        id="DuplicateIncludedIds"
+        message="Duplicate id @+id/tv_location, defined or included multiple times in layout/fragment_detail_user.xml: [layout/fragment_detail_user.xml defines @+id/tv_location, layout/fragment_detail_user.xml => layout/fragment_detail_user_shimmer.xml defines @+id/tv_location]">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="246"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="153"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="150"/>
+    </issue>
+
+    <issue
+        id="DuplicateIncludedIds"
+        message="Duplicate id @+id/tv_name, defined or included multiple times in layout/fragment_detail_user.xml: [layout/fragment_detail_user.xml defines @+id/tv_name, layout/fragment_detail_user.xml => layout/fragment_detail_user_shimmer.xml defines @+id/tv_name]">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="246"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="25"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="19"/>
+    </issue>
+
+    <issue
+        id="DuplicateIncludedIds"
+        message="Duplicate id @+id/tv_repository, defined or included multiple times in layout/fragment_detail_user.xml: [layout/fragment_detail_user.xml defines @+id/tv_repository, layout/fragment_detail_user.xml => layout/fragment_detail_user_shimmer.xml defines @+id/tv_repository]">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="246"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="124"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="120"/>
+    </issue>
+
+    <issue
+        id="DuplicateIncludedIds"
+        message="Duplicate id @+id/tv_type, defined or included multiple times in layout/fragment_detail_user.xml: [layout/fragment_detail_user.xml defines @+id/tv_type, layout/fragment_detail_user.xml => layout/fragment_detail_user_shimmer.xml defines @+id/tv_type]">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="246"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="218"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="217"/>
+    </issue>
+
+    <issue
+        id="DuplicateIncludedIds"
+        message="Duplicate id @+id/tv_username, defined or included multiple times in layout/fragment_detail_user.xml: [layout/fragment_detail_user.xml defines @+id/tv_username, layout/fragment_detail_user.xml => layout/fragment_detail_user_shimmer.xml defines @+id/tv_username]">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="246"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="59"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="53"/>
+    </issue>
+
+    <issue
+        id="DuplicateIncludedIds"
+        message="Duplicate id @+id/view_pager, defined or included multiple times in layout/fragment_detail_user.xml: [layout/fragment_detail_user.xml defines @+id/view_pager, layout/fragment_detail_user.xml => layout/fragment_detail_user_shimmer.xml defines @+id/view_pager]">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="246"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="235"/>
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="235"/>
+    </issue>
+
+    <issue
+        id="QueryPermissionsNeeded"
+        message="Consider adding a `&lt;queries>` declaration to your manifest when calling this method; see https://g.co/dev/packagevisibility for details">
+        <location
+            file="src/main/java/com/example/githubapp/ui/BlurFragment.kt"
+            line="53"/>
+    </issue>
+
+    <issue
+        id="SelectedPhotoAccess"
+        message="Your app is currently not handling Selected Photos Access introduced in Android 14+">
+        <location
+            file="$GRADLE_USER_HOME/caches/transforms-4/5fbe5e221a301a53ea3a3d8d86a6c430/transformed/filepicker-0.2.5/AndroidManifest.xml"
+            line="14"/>
+    </issue>
+
+    <issue
+        id="SelectedPhotoAccess"
+        message="Your app is currently not handling Selected Photos Access introduced in Android 14+">
+        <location
+            file="$GRADLE_USER_HOME/caches/transforms-4/5fbe5e221a301a53ea3a3d8d86a6c430/transformed/filepicker-0.2.5/AndroidManifest.xml"
+            line="15"/>
+    </issue>
+
+    <issue
+        id="VectorRaster"
+        message="Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more">
+        <location
+            file="src/main/res/drawable/sign_in.xml"
+            line="2"/>
+    </issue>
+
+    <issue
+        id="VectorRaster"
+        message="Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more">
+        <location
+            file="src/main/res/drawable/sign_up.xml"
+            line="2"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.application than 8.4.0 is available: 8.4.2">
+        <location
+            file="$HOME/Documents/4001116_synrgy7_mia_githubapp_ch6/gradle/libs.versions.toml"
+            line="2"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.library than 8.4.0 is available: 8.4.2">
+        <location
+            file="$HOME/Documents/4001116_synrgy7_mia_githubapp_ch6/gradle/libs.versions.toml"
+            line="2"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.appcompat:appcompat than 1.6.1 is available: 1.7.0">
+        <location
+            file="$HOME/Documents/4001116_synrgy7_mia_githubapp_ch6/gradle/libs.versions.toml"
+            line="8"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.squareup.retrofit2:converter-gson than 2.9.0 is available: 2.11.0">
+        <location
+            file="$HOME/Documents/4001116_synrgy7_mia_githubapp_ch6/gradle/libs.versions.toml"
+            line="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.squareup.retrofit2:retrofit than 2.9.0 is available: 2.11.0">
+        <location
+            file="$HOME/Documents/4001116_synrgy7_mia_githubapp_ch6/gradle/libs.versions.toml"
+            line="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.squareup.okhttp3:logging-interceptor than 4.11.0 is available: 4.12.0">
+        <location
+            file="$HOME/Documents/4001116_synrgy7_mia_githubapp_ch6/gradle/libs.versions.toml"
+            line="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-viewmodel-ktx than 2.8.0 is available: 2.8.2">
+        <location
+            file="$HOME/Documents/4001116_synrgy7_mia_githubapp_ch6/gradle/libs.versions.toml"
+            line="15"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.viewpager2:viewpager2 than 1.0.0 is available: 1.1.0">
+        <location
+            file="$HOME/Documents/4001116_synrgy7_mia_githubapp_ch6/gradle/libs.versions.toml"
+            line="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.work:work-runtime-ktx than 2.7.1 is available: 2.9.0">
+        <location
+            file="$HOME/Documents/4001116_synrgy7_mia_githubapp_ch6/gradle/libs.versions.toml"
+            line="30"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;Followers&quot;): This should probably be a plural rather than a string">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="3"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;Following&quot;): This should probably be a plural rather than a string">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="4"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 31">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="20"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1510 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/ic_settings.xml"
+            line="9"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (4944 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_in.xml"
+            line="138"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (5008 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_in.xml"
+            line="147"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (4979 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_in.xml"
+            line="156"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (818 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_in.xml"
+            line="276"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (834 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_in.xml"
+            line="291"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (989 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_in.xml"
+            line="312"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1602 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_in.xml"
+            line="336"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1317 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_in.xml"
+            line="396"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1773 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_in.xml"
+            line="402"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (2140 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_in.xml"
+            line="429"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1047 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_in.xml"
+            line="444"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (4826 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_up.xml"
+            line="111"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (4940 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_up.xml"
+            line="120"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (4734 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_up.xml"
+            line="129"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (853 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_up.xml"
+            line="303"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (815 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_up.xml"
+            line="315"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (834 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_up.xml"
+            line="336"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (822 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_up.xml"
+            line="366"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (830 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_up.xml"
+            line="381"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (2240 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_up.xml"
+            line="435"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1063 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_up.xml"
+            line="441"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1007 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_up.xml"
+            line="459"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1487 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_up.xml"
+            line="471"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1594 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_up.xml"
+            line="513"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1706 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/sign_up.xml"
+            line="579"/>
+    </issue>
+
+    <issue
+        id="InefficientWeight"
+        message="Use a `layout_height` of `0dp` instead of `400dp` for better performance">
+        <location
+            file="src/main/res/layout/fragment_blur.xml"
+            line="17"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_settings` appears to be unused">
+        <location
+            file="src/main/res/drawable/ic_settings.xml"
+            line="1"/>
+    </issue>
+
+    <issue
+        id="AlwaysShowAction"
+        message="Prefer &quot;`ifRoom`&quot; instead of &quot;`always`&quot;">
+        <location
+            file="src/main/res/menu/menu_fragment_home.xml"
+            line="10"/>
+        <location
+            file="src/main/res/menu/menu_fragment_home.xml"
+            line="16"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="42"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="71"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="107"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="136"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="172"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="201"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image">
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="36"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image">
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="66"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image">
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="103"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image">
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="133"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image">
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="170"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image">
+        <location
+            file="src/main/res/layout/fragment_detail_user_shimmer.xml"
+            line="200"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image">
+        <location
+            file="src/main/res/layout/fragment_login.xml"
+            line="20"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image">
+        <location
+            file="src/main/res/layout/fragment_register.xml"
+            line="20"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Blur&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_blur.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Level 1&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_blur.xml"
+            line="41"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Level 2&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_blur.xml"
+            line="47"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Level 3&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_blur.xml"
+            line="53"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Batal&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_blur.xml"
+            line="81"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Mulai&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_blur.xml"
+            line="98"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Lihat Hasil&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_blur.xml"
+            line="105"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Pilih File&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_blur.xml"
+            line="114"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Username&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="55"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Created At&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="84"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Repository&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="120"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Location&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="149"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Company&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="185"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Type&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_detail_user.xml"
+            line="214"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Username&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_item.xml"
+            line="28"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Sign In&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_login.xml"
+            line="15"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Email&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_login.xml"
+            line="37"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Password&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_login.xml"
+            line="57"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Sign In&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_login.xml"
+            line="85"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Belum punya akun? &quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_login.xml"
+            line="107"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Buat Akun&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_login.xml"
+            line="115"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Ganti Foto Profil&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_profile.xml"
+            line="27"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Sign Up&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_register.xml"
+            line="15"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Username&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_register.xml"
+            line="37"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Email&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_register.xml"
+            line="57"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Password&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_register.xml"
+            line="77"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Confirm Password&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_register.xml"
+            line="98"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Sign Up&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_register.xml"
+            line="126"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Dark Mode&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_settings.xml"
+            line="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Registrasi Berhasil&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_success_registration.xml"
+            line="34"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;tekan tombol dibawah untuk melanjutkan ke halaman login&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_success_registration.xml"
+            line="43"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Kembali ke Halaman Login&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/layout/fragment_success_registration.xml"
+            line="53"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Favorite&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/menu/menu_fragment_detail.xml"
+            line="8"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Search&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/menu/menu_fragment_home.xml"
+            line="8"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Favorite&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/menu/menu_fragment_home.xml"
+            line="15"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Profile&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/menu/menu_fragment_home.xml"
+            line="20"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Blur Feature&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/menu/menu_fragment_home.xml"
+            line="24"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Settings&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/menu/menu_fragment_home.xml"
+            line="28"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Delete Account&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/menu/menu_fragment_home.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Sign Out&quot;, should use `@string` resource">
+        <location
+            file="src/main/res/menu/menu_fragment_home.xml"
+            line="36"/>
+    </issue>
+
+</issues>
