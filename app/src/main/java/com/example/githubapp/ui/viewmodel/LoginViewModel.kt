@@ -36,11 +36,13 @@ class LoginViewModel(
             }
         }
     }
+
     fun saveToken(token: String): Deferred<Unit> =
         viewModelScope.async {
             try {
                 _isLoading.value = true
                 updatePreferencesUseCase.saveToken(token)
+                _isSuccess.value = true
                 _isLoading.value = false
             } catch (e: Exception) {
                 _error.value = e
@@ -48,12 +50,14 @@ class LoginViewModel(
                 _isSuccess.value = false
             }
         }
+
     fun saveUserId(email: String): Deferred<Unit> =
         viewModelScope.async {
             try {
                 _isLoading.value = true
                 val userId = fetchRoomUseCase.getUserIdByEmail(email)
                 updatePreferencesUseCase.saveUserId(userId)
+                _isSuccess.value = true
                 _isLoading.value = false
             } catch (e: Exception) {
                 _error.value = e
