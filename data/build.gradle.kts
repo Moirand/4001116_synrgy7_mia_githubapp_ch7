@@ -16,12 +16,32 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "BASE_URL", "\"https://api.github.com/\"")
+            buildConfigField("String", "TOKEN", "\"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\"")
+        }
+        create("staging") {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            buildConfigField("String", "BASE_URL", "\"https://api.github.com/\"")
+            buildConfigField("String", "TOKEN", "\"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\"")
+        }
+        release {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            buildConfigField("String", "BASE_URL", "\"https://api.github.com/\"")
+            buildConfigField("String", "TOKEN", "\"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\"")
         }
     }
     compileOptions {
@@ -30,6 +50,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "${JavaVersion.VERSION_11}"
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 

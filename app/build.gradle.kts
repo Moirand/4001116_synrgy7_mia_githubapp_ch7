@@ -20,23 +20,52 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
             isMinifyEnabled = false
+            isDebuggable = true
+            applicationIdSuffix = ".dev"
+        }
+        create("staging") {
+            isMinifyEnabled = true
+            isDebuggable = true
+            applicationIdSuffix = ".stg"
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        release {
+            isMinifyEnabled = true
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
+    flavorDimensions += "mode"
+    productFlavors {
+        create("free") {
+            dimension = "mode"
+            applicationIdSuffix = ".free"
+        }
+        create("paid") {
+            dimension = "mode"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "${JavaVersion.VERSION_11}"
     }
+
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 

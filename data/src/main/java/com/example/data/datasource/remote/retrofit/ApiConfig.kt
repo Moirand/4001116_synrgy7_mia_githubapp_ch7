@@ -2,6 +2,7 @@ package com.example.data.datasource.remote.retrofit
 
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.example.data.BuildConfig
 import com.google.gson.Gson
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -12,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiConfig {
     fun provideApiService(context: Context): ApiService =
         Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(Gson()))
             .client(provideOkhttpClient(context))
             .build()
@@ -27,7 +28,7 @@ object ApiConfig {
         Interceptor { chain ->
             val req = chain.request()
             val requestHeaders = req.newBuilder()
-                .addHeader("Authorization", "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")
+                .addHeader("Authorization", BuildConfig.TOKEN)
                 .build()
             chain.proceed(requestHeaders)
         }
