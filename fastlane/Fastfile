@@ -21,7 +21,7 @@ platform :android do
         build_type: 'FreeDebug'
       )
       firebase_app_distribution(
-        app: ENV["FIREBASE_FREE_DEV_APP_ID"],
+        app: ENV["FIREBASE_APP_ID"],
         groups: "tester",
         service_credentials_file: ENV["FIREBASE_SERVICE_ACCOUNT_KEY"]
       )

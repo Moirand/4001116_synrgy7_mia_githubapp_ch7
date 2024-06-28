@@ -36,5 +36,5 @@ jobs:
 
       - run: fastlane android distribute
         env:
-          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_FREE_DEV_APP_ID }}
           FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
