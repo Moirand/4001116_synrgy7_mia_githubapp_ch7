@@ -19,7 +19,7 @@ jobs:
           java-version: '17'
 
       - name: run unit test
-        run: ./gradlew testFreeDebugUnitTest
+        run: ./gradlew testFreeReleaseUnitTest
 
   upload_to_firebase:
     needs: run_unit_test
@@ -35,12 +35,12 @@ jobs:
           java-version: '17'
 
       - name: Build App
-        run: ./gradlew assembleFreeDebug
+        run: ./gradlew assembleFreeRelease
 
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
-          appId: ${{secrets.FIREBASE_FREE_DEBUG_APP_ID}}
+          appId: ${{secrets.FIREBASE_FREE_RELEASE_APP_ID}}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
           groups: tester
-          file: app/build/outputs/apk/free/debug/app-free-debug.apk
+          file: app/build/outputs/apk/free/release/app-free-release.apk
