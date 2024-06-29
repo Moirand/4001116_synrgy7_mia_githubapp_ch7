@@ -16,7 +16,6 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class LoginFragment : Fragment() {
     private val binding by lazy { FragmentLoginBinding.inflate(layoutInflater) }
     private val viewmodel: LoginViewModel by viewModel()
@@ -27,6 +26,10 @@ class LoginFragment : Fragment() {
     ): View = binding.root
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.btnCrash.setOnClickListener {
+            throw RuntimeException("Test Crash")
+        }
+
         binding.btnTextBuatAkun.setOnClickListener {
             binding.root.findNavController().navigate(
                 LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
