@@ -34,7 +34,13 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - run: fastlane android distribute
-        env:
-          FIREBASE_APP_ID: ${{ secrets.FIREBASE_FREE_DEV_APP_ID }}
-          FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+      - name: Build App
+        run: ./gradlew assembleFreeDebug
+
+      - name: upload artifact to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{secrets.FIREBASE_FREE_DEBUG_APP_ID}}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+          groups: tester
+          file: app/build/outputs/apk/free/debug/app-free-debug.apk
