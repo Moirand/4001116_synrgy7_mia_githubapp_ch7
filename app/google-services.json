@@ -45,6 +45,25 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:182661839053:android:91d36e41337e7b5973d184",
+        "android_client_info": {
+          "package_name": "com.example.githubapp.free"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsc5rN6qCl4QKzyDDsLFp_89wK1HIdFt4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:182661839053:android:0c789a28d62af6d373d184",
         "android_client_info": {
           "package_name": "com.example.githubapp.free.dev"
@@ -64,47 +83,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:182661839053:android:1bd3dac99e51ad3273d184",
-        "android_client_info": {
-          "package_name": "com.example.githubapp.free.release"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCsc5rN6qCl4QKzyDDsLFp_89wK1HIdFt4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:182661839053:android:bb4ac5df73244b1773d184",
         "android_client_info": {
           "package_name": "com.example.githubapp.free.stg"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCsc5rN6qCl4QKzyDDsLFp_89wK1HIdFt4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:182661839053:android:3142f14ba97ab8fc73d184",
-        "android_client_info": {
-          "package_name": "com.example.githubapp.release"
         }
       },
       "oauth_client": [],
