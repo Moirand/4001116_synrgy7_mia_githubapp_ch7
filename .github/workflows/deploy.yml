@@ -19,7 +19,7 @@ jobs:
           java-version: '17'
 
       - name: run unit test
-        run: ./gradlew testFreeReleaseUnitTest
+        run: ./gradlew testFreeDebugUnitTest
 
   upload_to_firebase:
     needs: run_unit_test
