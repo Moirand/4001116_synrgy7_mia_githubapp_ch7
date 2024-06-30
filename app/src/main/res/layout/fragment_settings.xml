@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".ui.SettingsFragment">
+    tools:context=".ui.SettingsFragment"
+    tools:ignore="HardcodedText" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

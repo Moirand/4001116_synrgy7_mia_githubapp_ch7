@@ -1,6 +1,7 @@
 @file:JvmName("WorkerUtils")
 package com.example.githubapp.worker
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -22,6 +23,7 @@ import java.io.IOException
 import java.util.UUID
 
 private const val TAG = "WorkerUtils"
+@SuppressLint("MissingPermission", "NotificationPermission")
 fun makeStatusNotification(message: String, context: Context) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val name = VERBOSE_NOTIFICATION_CHANNEL_NAME
