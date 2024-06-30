@@ -67,7 +67,7 @@ org-mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", ve
 org-mockito-coroutine = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version = "1.8.1" }
 org-mockito-inline = { group = "org.mockito", name = "mockito-inline", version = "5.2.0" }
 androidx-core-testing = { group = "androidx.arch.core", name = "core-testing", version = "2.2.0" }
-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version = "32.3.1" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version = "33.1.1" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 
@@ -78,6 +78,6 @@ safeArgs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigati
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
-google-services = { id = "com.google.gms.google-services", version = "4.3.15" }
+google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
 
