@@ -21,7 +21,7 @@ jobs:
       - name: run unit test
         run: ./gradlew testFreeReleaseUnitTest
 
-  upload_to_firebase:
+  build_apk:
     needs: run_unit_test
     runs-on: ubuntu-latest
     steps:
@@ -34,8 +34,45 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
 
-      - name: Build App
-        run: ./gradlew assembleFreeRelease
+      - name: Build Apk
+        run: ./gradlew assembleFreeRelease # membuat file apk flavor 'free' dengan build type 'release' namun masih dalam bentuk unsigned apk
+
+      #===== KODE UNTUK MENGUBAH UNSIGNED APK MENJADI SIGNED APK (KHUSUS UNTUK BUILD TYPE RELEASE) =====#
+      # Langkah 1: generate keystore dengan command terminal berikut
+        # keytool -genkey -v -keystore [nama keystore].jks -keyalg RSA -keysize 2048 -validity 10000 -alias [nama alias]
+      # Langkah 2: encode keystore yang telah dibuat ke Base64 dengan command terminal berikut
+        # base64 -i [nama keystore].jks | tr -d '\n' | tee [nama encode keystore].txt
+      # Langkah 3: buat secret-secret baru pada github untuk menampung berbagai macam data seperti file encode keystore, keystore alias, keystore password, dan key password (3 terakhir dibuat saat generate keystore pada langkah 1)
+      # Langkah 4: sign apk
+      - name: Sign APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/free/release # path file unsigned apk
+          signingKeyBase64: ${{ secrets.KEYSTORE_ENCODE }} # secret untuk data file encode keystore
+          alias: ${{ secrets.KEYSTORE_ALIAS }} # secret untuk data keystore alias
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }} # secret untuk data keystore password
+          keyPassword: ${{ secrets.KEY_PASSWORD }} # secret untuk data key password
+      # Langkah 5: upload file sign apk sebagai artifact
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release-signed
+          path: ${{steps.sign_app.outputs.signedReleaseFile}}
+       #===============================================================#
+
+  upload_to_firebase:
+    needs: build_apk
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: setup java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '21'
 
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
@@ -43,4 +80,4 @@ jobs:
           appId: ${{secrets.FIREBASE_FREE_RELEASE_APP_ID}}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
           groups: tester
-          file: app/build/outputs/apk/free/release/app-free-release-unsigned.apk
+          file: ${{steps.sign_app.outputs.signedReleaseFile}}
