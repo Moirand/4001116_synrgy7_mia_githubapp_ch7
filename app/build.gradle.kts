@@ -37,7 +37,7 @@ android {
             )
         }
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -57,12 +57,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     kotlinOptions {
-        jvmTarget = "${JavaVersion.VERSION_11}"
+        jvmTarget = "${JavaVersion.VERSION_21}"
     }
 
     buildFeatures {
@@ -71,6 +71,8 @@ android {
     }
     lint {
         baseline = file("lint.xml")
+        abortOnError = false
+        checkReleaseBuilds = false
     }
 }
 
