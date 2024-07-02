@@ -37,11 +37,11 @@ jobs:
       - name: Build Apk
         run: ./gradlew assembleFreeRelease # membuat file apk flavor 'free' dengan build type 'release' namun masih dalam bentuk unsigned apk
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
-
-      - name: Install Android Build Tools
-        run: sdkmanager "build-tools;29.0.3"
+      - name: Install and configure Android Build Tools
+        run: |
+            sdkmanager "build-tools;${{ env."29.0.3" }}"
+            echo "ANDROID_BUILD_TOOLS=$ANDROID_HOME/build-tools/${{ env."29.0.3" }}" >> $GITHUB_ENV
+            echo "$ANDROID_BUILD_TOOLS" >> $GITHUB_PATH
 
       #===== KODE UNTUK MENGUBAH UNSIGNED APK MENJADI SIGNED APK (KHUSUS UNTUK BUILD TYPE RELEASE) =====#
       # Langkah 1: generate keystore dengan command terminal berikut
