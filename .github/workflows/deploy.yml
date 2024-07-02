@@ -38,7 +38,7 @@ jobs:
         run: ./gradlew assembleFreeRelease # membuat file apk flavor 'free' dengan build type 'release' namun masih dalam bentuk unsigned apk
 
       - name: setup android
-        uses: actions/setup-android@v2
+        uses: android-actions/setup-android@v2
         with:
           android-sdk-version: '29'
 
