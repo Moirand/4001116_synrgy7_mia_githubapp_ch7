@@ -34,11 +34,14 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
 
+      - name: Build Apk
+        run: ./gradlew assembleFreeRelease # membuat file apk flavor 'free' dengan build type 'release' namun masih dalam bentuk unsigned apk
+
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
 
-      - name: Build Apk
-        run: ./gradlew assembleFreeRelease # membuat file apk flavor 'free' dengan build type 'release' namun masih dalam bentuk unsigned apk
+      - name: Install Android Build Tools
+        run: sdkmanager "build-tools;29.0.3"
 
       #===== KODE UNTUK MENGUBAH UNSIGNED APK MENJADI SIGNED APK (KHUSUS UNTUK BUILD TYPE RELEASE) =====#
       # Langkah 1: generate keystore dengan command terminal berikut
